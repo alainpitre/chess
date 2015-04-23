@@ -1,0 +1,15 @@
+#board{
+	font-size: 0;
+}
+.case{
+	font-size: 12px;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border:1px solid #cccccc;
+	display: inline-block;
+	margin: 3px;
+	cursor: pointer;
+	vertical-align: top;
+}
