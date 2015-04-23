@@ -22,7 +22,7 @@
 }
 .active{
 	border: 2px solid blue;
-	padding-left: -1px;
-	padding-top: -1px;
-	line-height: 48px;
+	width: 46px;
+	height: 46px;
+	line-height: 46px;
 }
