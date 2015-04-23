@@ -16,17 +16,10 @@ function Board(){
 
 	private.setRow = function(){
 		for(var i = 0; i < public.row.length; i++){
-			var row = public.row[i];
-			private.cases[row] = {};
-			private.setColumn(row);
-		}
-	};
-
-	private.setColumn = function(row){
-		for(var i = 0; i < public.col.length; i++){
-			var col = public.col[i];
-			private.cases[row][col] = {};
-			private.cases[row][col] = private.buildCase(row, col);
+			private.cases[public.row[i]] = {};
+			for(var j = 0; j < public.col.length; j++){
+				private.cases[public.row[i]][public.col[j]] = private.buildCase(i, j);
+			}
 		}
 	};
 
@@ -36,12 +29,19 @@ function Board(){
 		return $board;
 	};
 
-	private.buildCase = function(row, col){
+	private.getCaseClass = function(i, j){
+		if((i + (j + 1)) % 2 == 0)
+			return 'case-dark';
+		else
+			return 'case-light';
+	};
+
+	private.buildCase = function(i, j){
 		var $case = $('<div>');
 
-		$case.attr('class', 'case');
-		$case.data('row', row);
-		$case.data('col', col);
+		$case.attr('class', private.getCaseClass(i, j));
+		$case.data('row', public.row[i]);
+		$case.data('col', public.col[j]);
 
 		$case.bind('click', function(){
 			private.clickCase($(this));
@@ -56,13 +56,23 @@ function Board(){
 			for(var j = 0; j < public.col.length; j++){
 				private.board.append(public.getCase(public.row[i], public.col[j]));
 			}
-			private.board.append('<br />');
 		}
 	};
 
 	private.clickCase = function($case){
+		$('.active').removeClass('active');
 		if($case.hasPiece()){
-			$case.getPiece().toString();
+			$case.addClass('active');
+			var $piece = $case.getPiece();
+			private.highlightCases($piece.getMoves());
+		}
+	};
+
+	private.highlightCases = function(cases){
+		for(var i = 0; i < cases.length; i++){
+			var position = cases[i];
+			var $case = public.getCase(position.row, position.col);
+			$case.addClass('active');
 		}
 	};
 

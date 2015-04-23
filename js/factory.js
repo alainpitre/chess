@@ -42,34 +42,39 @@ function Factory(){
 		private.buildKing('e', 8, 1);
 	};
 
+	private.addPieceToCase = function($case, $piece){
+		$case.html($piece);
+		$piece.setPosition();
+	};
+
 	private.buildKing = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new King(player));
+		private.addPieceToCase($case, new King(player));
 	};
 
 	private.buildQueen = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new Queen(player));
+		private.addPieceToCase($case, new Queen(player));
 	};
 
 	private.buildBishop = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new Bishop(player));
+		private.addPieceToCase($case, new Bishop(player));
 	};
 
 	private.buildKnight = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new Knight(player));
+		private.addPieceToCase($case, new Knight(player));
 	};
 
 	private.buildTower = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new Tower(player));
+		private.addPieceToCase($case, new Tower(player));
 	};
 
 	private.buildPion = function(col, row, player){
 		var $case = Chess.board.getCase(row, col);
-		$case.html(new Pion(player));
+		private.addPieceToCase($case, new Pawn(player));
 	};
 
 	return public;

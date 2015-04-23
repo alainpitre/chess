@@ -3,27 +3,49 @@ function Piece(type, player){
 	var public = {};
 	var private = {};
 
-	public.type = "";
-	public.player = "";
-	public.html = "";
+	private.html = "";
+	private.type = "";
+	private.player = "";
+	private.position = {};
 
 	private.construct = function(){
-		public.type = type;
-		public.player = player;
+		private.type = type;
+		private.player = player;
+	};
+
+	public.setHtml = function(html){
+		private.html = html;
+	};
+
+	public.setPosition = function(position){
+		private.position = position;
+	}
+
+	public.getPosition = function(position){
+		return private.position;
+	}
+
+	public.getType = function(position){
+		return private.type;
+	}
+
+	public.getPlayer = function(position){
+		return private.player;
+	}
+
+	public.getMoves = function(){
+		console.warn('NO FUNCTION MOVES IMPLEMENTED');
+		return [];
 	};
 
 	public.piece = function(){
 		var $piece = $('<div>');
 		$piece.addClass('piece');
 		$piece.addClass(public.type);
-		$piece.html(public.html);
+		$piece.html(private.html);
 		$piece.data(public);
 		return $piece;
 	};
-
-	public.setHtml = function(html){
-		public.html = html;
-	}
 
 	private.construct();
 	return public;

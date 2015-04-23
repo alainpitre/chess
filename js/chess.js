@@ -13,8 +13,8 @@ function Chess(){
 	private.documentReady = function(){
 		public.board = new Board();
 		public.factory = new Factory();
-		private.loadChess();
 		public.board.print();
+		private.loadChess();
 	};
 
 	private.loadChess = function(){
