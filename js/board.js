@@ -51,7 +51,7 @@ function Board(){
 	};
 
 	public.print = function($container){
-		$("#login").html(private.board);
+		$("#chess").html(private.board);
 		for(var i = 0; i < public.row.length; i++){
 			for(var j = 0; j < public.col.length; j++){
 				private.board.append(public.getCase(public.row[i], public.col[j]));
