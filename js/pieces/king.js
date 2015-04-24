@@ -8,6 +8,6 @@ function King(player){
 	};
 
 	private.construct();
-	return public.piece();
+	return public;
 
 }

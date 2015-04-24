@@ -8,6 +8,6 @@ function Queen(player){
 	};
 
 	private.construct();
-	return public.piece();
+	return public;
 
 }

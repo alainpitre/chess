@@ -7,6 +7,7 @@ function Piece(type, player){
 	private.type = "";
 	private.player = "";
 	private.position = {};
+	private.index = 0;
 
 	private.construct = function(){
 		private.type = type;
@@ -33,18 +34,23 @@ function Piece(type, player){
 		return private.player;
 	}
 
+	public.setIndex = function(index){
+		private.index = index;
+	}
+
 	public.getMoves = function(){
 		console.warn('NO FUNCTION MOVES IMPLEMENTED');
 		return [];
 	};
 
-	public.piece = function(){
-		var $piece = $('<div>');
-		$piece.addClass('piece');
-		$piece.addClass(public.type);
-		$piece.html(private.html);
-		$piece.data(public);
-		return $piece;
+	public.getJquery = function(){
+		return $('<div>', {
+			'class' : 'piece',
+			'html'	: private.html,
+			'data'	: {
+				'index' : private.index
+			}
+		});
 	};
 
 	private.construct();

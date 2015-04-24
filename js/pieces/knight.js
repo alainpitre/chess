@@ -8,6 +8,6 @@ function Knight(player){
 	};
 
 	private.construct();
-	return public.piece();
+	return public;
 
 }

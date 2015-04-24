@@ -1,4 +1,4 @@
-function Board(){
+function Board($container){
 
 	var public = {};
 	var private = {};
@@ -6,55 +6,44 @@ function Board(){
 	public.col = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 	public.row = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-	private.cases = {};
 	private.board = undefined;
 
 	public.construct = function(){
-		private.board = private.getBoard();
-		private.setRow();
+		private.setBoard();
+		private.buildCases();
 	};
 
-	private.setRow = function(){
-		for(var i = 0; i < public.row.length; i++){
-			private.cases[public.row[i]] = {};
-			for(var j = 0; j < public.col.length; j++){
-				private.cases[public.row[i]][public.col[j]] = private.buildCase(i, j);
+	private.buildCases = function(){
+		for(var i = 0; i < 8; i++){
+			Chess.cases[i] = {};
+			for(var j = 0; j < 8; j++){
+				private.appendCase(i, j);
 			}
 		}
 	};
 
-	private.getBoard = function(){
+	private.appendCase = function(x, y){
+		var singleCase = new Case(x, y);
+		var $case = singleCase.getJquery();
+		Chess.cases[i][j] = $case;
+		$case.bind('click', function(){
+			//private.clickCase($(this));
+		});
+		private.board.append($case);
+	};
+
+	private.setBoard = function($container){
 		var $board = $('<div>');
 		$board.attr('id', 'board');
-		return $board;
-	};
-
-	private.getCaseClass = function(i, j){
-		if((i + (j + 1)) % 2 == 0)
-			return 'case-dark';
-		else
-			return 'case-light';
-	};
-
-	private.buildCase = function(i, j){
-		var $case = $('<div>');
-
-		$case.attr('class', private.getCaseClass(i, j));
-		$case.data('row', public.row[i]);
-		$case.data('col', public.col[j]);
-
-		$case.bind('click', function(){
-			private.clickCase($(this));
-		});
-
-		return $case;
+		private.board = $board;
+		$container.html(private.board);
 	};
 
 	public.print = function($container){
-		$("#chess").html(private.board);
-		for(var i = 0; i < public.row.length; i++){
-			for(var j = 0; j < public.col.length; j++){
-				private.board.append(public.getCase(public.row[i], public.col[j]));
+		$container.html(private.board);
+		for(var i = 0; i < 8; i++){
+			for(var j = 0; j < 8; j++){
+				private.appendCaseToBoard(i, j);
 			}
 		}
 	};
@@ -77,7 +66,7 @@ function Board(){
 	};
 
 	public.getCase = function(row, col){
-		return private.cases[row][col];
+		return Chess.cases[row][col];
 	};
 
 	public.construct();

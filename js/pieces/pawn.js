@@ -22,6 +22,6 @@ function Pawn(player){
 	}
 
 	private.construct();
-	return public.piece();
+	return public;
 
 }
