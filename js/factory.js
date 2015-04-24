@@ -1,50 +1,48 @@
 var Factory = {};
 
 Factory.loadPawn = function(){
-	for(var i = 0; i < Chess.board.col.length; i++){
-		var col = Chess.board.col[i];
-		Factory.buildPion(col, 2, 0);
-		Factory.buildPion(col, 7, 1);
+	for(var i = 0; i < 8; i++){
+		Factory.buildPion(i, 1, 0);
+		Factory.buildPion(i, 6, 1);
 	}
 };
 
 Factory.loadTower = function(){
-	Factory.buildTower('a', 1, 0);
-	Factory.buildTower('h', 1, 0);
-	Factory.buildTower('a', 8, 1);
-	Factory.buildTower('h', 8, 1);
+	Factory.buildTower(0, 0, 0);
+	Factory.buildTower(7, 0, 0);
+	Factory.buildTower(0, 7, 1);
+	Factory.buildTower(7, 7, 1);
 };
 
 Factory.loadKinght = function(){
-	Factory.buildKnight('b', 1, 0);
-	Factory.buildKnight('g', 1, 0);
-	Factory.buildKnight('b', 8, 1);
-	Factory.buildKnight('g', 8, 1);
+	Factory.buildKnight(1, 0, 0);
+	Factory.buildKnight(6, 0, 0);
+	Factory.buildKnight(1, 7, 1);
+	Factory.buildKnight(6, 7, 1);
 };
 
 Factory.loadBishop = function(){
-	Factory.buildBishop('c', 1, 0);
-	Factory.buildBishop('f', 1, 0);
-	Factory.buildBishop('c', 8, 1);
-	Factory.buildBishop('f', 8, 1);
+	Factory.buildBishop(2, 0, 0);
+	Factory.buildBishop(5, 0, 0);
+	Factory.buildBishop(2, 7, 1);
+	Factory.buildBishop(5, 7, 1);
 };
 
 Factory.loadQueen = function(){
-	Factory.buildQueen('d', 1, 0);
-	Factory.buildQueen('d', 8, 1);
+	Factory.buildQueen(3, 0, 0);
+	Factory.buildQueen(3, 7, 1);
 };
 
 Factory.loadKing = function(){
-	Factory.buildKing('e', 1, 0);
-	Factory.buildKing('e', 8, 1);
+	Factory.buildKing(4, 0, 0);
+	Factory.buildKing(4, 7, 1);
 };
 
 Factory.addPieceToCase = function($case, piece){
-
 	var index = Chess.pieces.length;
 	piece.setIndex(index);
 	Chess.pieces.push(piece);
-	$case.html(piece.getJquery());
+	$case.setPiece(index);
 
 };
 

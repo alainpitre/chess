@@ -4,7 +4,7 @@ function Pawn(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Pa");
+		public.setHtml(['&#9817;', '&#9823;']);
 	};
 
 	public.getMoves = function(){

@@ -4,7 +4,7 @@ function Queen(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Qn");
+		public.setHtml(['&#9813;', '&#9819;']);
 	};
 
 	private.construct();

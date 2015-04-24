@@ -4,7 +4,7 @@ function Tower(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Tw");
+		public.setHtml(['&#9814;', '&#9820;']);
 	};
 
 	private.construct();

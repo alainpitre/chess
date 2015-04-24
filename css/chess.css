@@ -5,10 +5,10 @@
 }
 .case-light,
 .case-dark{
-	font-size: 12px;
+	font-size: 42px;
 	width: 50px;
 	height: 50px;
-	line-height: 50px;
+	line-height: 60px;
 	text-align: center;
 	display: inline-block;
 	cursor: pointer;

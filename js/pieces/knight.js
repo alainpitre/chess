@@ -4,7 +4,7 @@ function Knight(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Kn");
+		public.setHtml(['&#9816;', '&#9822;']);
 	};
 
 	private.construct();

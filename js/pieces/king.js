@@ -4,7 +4,7 @@ function King(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Kg");
+		public.setHtml(['&#9812;', '&#9818;']);
 	};
 
 	private.construct();

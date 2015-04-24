@@ -4,7 +4,7 @@ function Bishop(player){
 	var private = {};
 
 	private.construct = function(){
-		public.setHtml("Bi");
+		public.setHtml(['&#9815;', '&#9821;']);
 	};
 
 	private.construct();

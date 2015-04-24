@@ -3,15 +3,17 @@ function Chess(){
 	var public = {};
 	var private = {};
 
-	public.board = undefined;
-	public.cases = {};
 	public.pieces = [];
+	public.cases = {};
+	public.board = undefined;
+	public.events = undefined;
 
 	public.main = function(){
 		$("document").ready(private.documentReady);
 	}
 
 	private.documentReady = function(){
+		public.events = new Event();
 		public.board = new Board($("#chess"));
 		private.loadChess();
 	};

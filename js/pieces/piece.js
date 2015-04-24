@@ -15,7 +15,7 @@ function Piece(type, player){
 	};
 
 	public.setHtml = function(html){
-		private.html = html;
+		private.html = html[player];
 	};
 
 	public.setPosition = function(position){
@@ -41,6 +41,10 @@ function Piece(type, player){
 	public.getMoves = function(){
 		console.warn('NO FUNCTION MOVES IMPLEMENTED');
 		return [];
+	};
+
+	public.toString = function(){
+		console.log("piece: ", public.getType());
 	};
 
 	public.getJquery = function(){
