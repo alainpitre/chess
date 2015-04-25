@@ -11,7 +11,7 @@ function Board($container){
 	private.board = undefined;
 
 	public.construct = function(){
-		private.setBoard($container);
+		private.loadBoard($container);
 		private.buildCases();
 	};
 
@@ -30,11 +30,15 @@ function Board($container){
 		private.board.append($case);
 	};
 
-	private.setBoard = function($container){
-		var $board = $('<div>');
-		$board.attr('id', 'board');
-		private.board = $board;
+	private.loadBoard = function($container){
+		private.board = private.getJqueryBoard()
 		$container.html(private.board);
+	};
+
+	private.getJqueryBoard = function(){
+		return $('<div>', {
+			'id' : 'board'
+		});
 	};
 
 	public.getCase = function(x, y){

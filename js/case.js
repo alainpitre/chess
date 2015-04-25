@@ -1,7 +1,5 @@
 function Case(x, y){
 
-	var $case = $('<div>');
-
 	var public = {};
 	var private = {};
 
@@ -17,16 +15,23 @@ function Case(x, y){
 		private.setJquery();
 	};
 
+	public.hasPiece = function(){
+		return public.find('div').length > 0;
+	};
+
 	public.setPiece = function(p_id){
 		public.p_id = p_id;
-		var $case = Chess.cases[public.y][public.x];
-		var piece = Chess.pieces[p_id];
-		$case.html(piece.getJquery());
-	}
+		private.addPieceToCase();
+	};
+
+	private.addPieceToCase = function(){
+		var piece = Chess.pieces[public.p_id];
+		public.html(piece.getJquery());
+	};
 
 	public.getPiece = function(){
 		return Chess.pieces[public.p_id];
-	}
+	};
 
 	public.getPosition = function(){
 		return { x : public.x, y : public.y };
@@ -40,12 +45,23 @@ function Case(x, y){
 	};
 
 	private.setJquery = function(){
+		var $case = $('<div>');
 		$case.addClass(public.className);
-		$case.data(public);
-		$case.bind('click', Chess.events.clickCase);
+		private.extend($case);
+		private.bindEvents();
 	}
 
+	private.extend = function($case){
+		public = $.extend($case, public);
+	};
+
+	private.bindEvents = function(){
+		public.bind('click', function(){
+			Chess.events.clickCase(public);
+		});
+	};
+
 	private.construct();
-	return $case;
+	return public;
 
 }

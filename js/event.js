@@ -2,24 +2,10 @@ function Event(){
 
 	var event = {};
 
-	$.fn.hasPiece = function(){
-		return $(this).find('div').length > 0;
-	}
-
-	$.fn.getPiece = function(){
-		var index = $(this).find('div').data('index');
-		return Chess.pieces[index];
-	}
-
-	$.fn.setPiece = function(index){
-		$(this).data().setPiece(index);
-	}
-
-	event.clickCase = function(){
-		var square = $(this).data();
-		if($(this).hasPiece()){
+	event.clickCase = function(square){
+		if(square.hasPiece())
 			event.selectPiece(square);
-		}else
+		else
 			event.movePiece(square);
 	};
 
@@ -32,18 +18,18 @@ function Event(){
 	};
 
 	event.moveTo = function(position){
-		var $square = Chess.board.getCase(position.y, position.x);
-		$square.html(Chess.board.selected.getJquery());
+		var square = Chess.board.getCase(position.y, position.x);
+		square.html(Chess.board.selected.getJquery());
 	};
 
 	event.emptySquare = function(position){
-		var $square = Chess.board.getCase(position.y, position.x);
-		$square.html('');
+		var square = Chess.board.getCase(position.y, position.x);
+		square.html('');
 	};
 
-	event.selectPiece = function($square){
-		Chess.board.selected = $square.getPiece();
-		Chess.board.position = $square.getPosition();
+	event.selectPiece = function(square){
+		Chess.board.selected = square.getPiece();
+		Chess.board.position = square.getPosition();
 
 		console.log(Chess.board.selected.getType());
 	};
