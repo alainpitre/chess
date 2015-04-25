@@ -52,7 +52,7 @@ function Square(x, y){
 	private.setJquery = function(){
 		var $square = $('<div>');
 		$square.addClass(public.className);
-		public = $.extend($square, public);
+		$.extend(public, $square);
 	}
 
 	private.bindEvents = function(){
