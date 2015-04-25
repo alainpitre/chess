@@ -1,4 +1,4 @@
-function Case(x, y){
+function Square(x, y){
 
 	var public = {};
 	var private = {};
@@ -9,14 +9,19 @@ function Case(x, y){
 	public.p_id = undefined;
 
 	private.construct = function(){
-		public.x = x;
-		public.y = y;
+		private.definePosition(x, y);
 		private.setClassName(x, y);
 		private.setJquery();
+		private.bindEvents();
+	};
+
+	private.definePosition = function(x, y){
+		public.x = x;
+		public.y = y;
 	};
 
 	public.hasPiece = function(){
-		return public.find('div').length > 0;
+		return public.p_id != undefined;
 	};
 
 	public.setPiece = function(p_id){
@@ -45,15 +50,10 @@ function Case(x, y){
 	};
 
 	private.setJquery = function(){
-		var $case = $('<div>');
-		$case.addClass(public.className);
-		private.extend($case);
-		private.bindEvents();
+		var $square = $('<div>');
+		$square.addClass(public.className);
+		public = $.extend($square, public);
 	}
-
-	private.extend = function($case){
-		public = $.extend($case, public);
-	};
 
 	private.bindEvents = function(){
 		public.bind('click', function(){

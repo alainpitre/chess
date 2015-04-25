@@ -25,7 +25,7 @@ function Board($container){
 	};
 
 	private.addCaseToBoard = function(x, y){
-		var $case = new Case(x, y);
+		var $case = new Square(x, y);
 		Chess.cases[y][x] = $case;
 		private.board.append($case);
 	};

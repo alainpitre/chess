@@ -38,40 +38,40 @@ Factory.loadKing = function(){
 	Factory.buildKing(4, 7, 1);
 };
 
-Factory.addPieceToCase = function($case, piece){
+Factory.addPieceToCase = function($square, piece){
 	var index = Chess.pieces.length;
 	piece.setIndex(index);
 	Chess.pieces.push(piece);
-	$case.setPiece(index);
+	$square.setPiece(index);
 };
 
 Factory.buildKing = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new King(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new King(player));
 };
 
 Factory.buildQueen = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new Queen(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new Queen(player));
 };
 
 Factory.buildBishop = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new Bishop(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new Bishop(player));
 };
 
 Factory.buildKnight = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new Knight(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new Knight(player));
 };
 
 Factory.buildTower = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new Tower(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new Tower(player));
 };
 
 Factory.buildPion = function(x, y, player){
-	var $case = Chess.board.getCase(y, x);
-	Factory.addPieceToCase($case, new Pawn(player));
+	var $square = Chess.board.getCase(y, x);
+	Factory.addPieceToCase($square, new Pawn(player));
 };
 
