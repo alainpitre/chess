@@ -8,38 +8,38 @@ function Board($container){
 
 	public.construct = function(){
 		private.initBoard($container);
-		private.buildSquares();
+		private.loadSquares();
 	};
 
 	private.initBoard = function($container){
-		private.board = private.getJqueryBoard()
+		private.board = $('<div>');
+		private.board.attr('id', 'board');
 		$container.html(private.board);
 	};
 
-	private.buildSquares = function(){
+	private.loadSquares = function(){
 		for(var y = 0; y < 8; y++){
-			private.square[y] = {};
 			for(var x = 0; x < 8; x++){
-				private.appendSquare(x, y);
+				private.buildSquare(x, y);
 			}
 		}
 	};
 
-	private.appendSquare = function(x, y){
+	private.buildSquare = function(x, y){
 		var square = new Square(x, y);
-		private.square[y][x] = square;
+		if(private.square[x] == undefined)
+			private.square[x] = {};
+		private.square[x][y] = square;
 		private.board.append(square);
 	};
 
-	private.getJqueryBoard = function(){
-		var $board = $('<div>');
-		$board.attr('id', 'board');
-		return $board;
+	public.getSquare = function(position){
+		return private.square[position.x][position.y];
 	};
 
-	public.getSquare = function(x, y){
-		return private.square[x][y];
-	};
+	public.squareExist = function(position){
+		return private.square[position.x][position.y] != undefined;
+	}	
 
 	public.construct();
 	return public;

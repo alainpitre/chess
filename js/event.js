@@ -3,31 +3,24 @@ function Event(){
 	var event = {};
 
 	event.clickSquare = function(square){
-
-		Chess.active = square;
-
-		console.log(square.getPiece());
-
 		if(Chess.active != undefined)
-			event.movePiece();
+			event.movePiece(square);
 		else if(square.hasPiece())
-			Chess.active = piece;
-
+			Chess.active = square;
+		else
+			Chess.active = undefined;
 	};
 
-	event.movePiece = function(){
-		var originPosition = Chess.active.getPosition();
-		var originSquare = Chess.board.getSquare(originPosition.x, originPosition.y);
-		square.html(Chess.active);
+	event.movePiece = function(square){
+		var piece = Chess.active.getPiece();
+		square.html(piece);
 
+		piece.getMoves();
+		event.resetActive();
+	};
 
+	event.resetActive = function(){
 		Chess.active.html('');
-		Chess.active = undefined;
-	};
-
-	event.moveTo = function(position){
-		var square = Chess.board.getCase(position.y, position.x);
-		square.html(Chess.active.getJquery());
 		Chess.active = undefined;
 	};
 

@@ -9,16 +9,7 @@ function Pawn(player){
 
 	public.getMoves = function(){
 		var currentPosition = public.getPosition();
-		var move = [];
-		move.push({
-			'col' : currentPosition.col,
-			'row' : currentPosition.row - 1
-		});
-		move.push({
-			'col' : currentPosition.col,
-			'row' : currentPosition.row - 2
-		});
-		return move;
+		console.log(currentPosition);
 	}
 
 	private.construct();

@@ -21,7 +21,7 @@ function Square(x, y){
 	};
 
 	public.hasPiece = function(){
-		return public.p_id != undefined;
+		return public.children().length > 0;
 	};
 
 	public.setPiece = function(p_id){

@@ -38,38 +38,33 @@ Factory.loadKing = function(){
 	Factory.buildKing(4, 7, 1);
 };
 
-Factory.addPieceOnSquare = function(square, piece){
+Factory.addPieceOnSquare = function(piece, x, y){
+	var square = Chess.board.getSquare({'x' : x, 'y' : y});
 	Chess.pieces.push(piece);
 	square.html(piece);
 };
 
 Factory.buildKing = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new King(player));
+	Factory.addPieceOnSquare(new King(player), x, y);
 };
 
 Factory.buildQueen = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new Queen(player));
+	Factory.addPieceOnSquare(new Queen(player), x, y);
 };
 
 Factory.buildBishop = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new Bishop(player));
+	Factory.addPieceOnSquare(new Bishop(player), x, y);
 };
 
 Factory.buildKnight = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new Knight(player));
+	Factory.addPieceOnSquare(new Knight(player), x, y);
 };
 
 Factory.buildTower = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new Tower(player));
+	Factory.addPieceOnSquare(new Tower(player), x, y);
 };
 
 Factory.buildPion = function(x, y, player){
-	var square = Chess.board.getSquare(y, x);
-	Factory.addPieceOnSquare(square, new Pawn(player));
+	Factory.addPieceOnSquare(new Pawn(player), x, y);
 };
 
