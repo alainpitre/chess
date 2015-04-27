@@ -2,36 +2,33 @@ function Event(){
 
 	var event = {};
 
-	event.clickCase = function(square){
-		if(square.hasPiece())
-			event.selectPiece(square);
-		else
-			event.movePiece(square);
+	event.clickSquare = function(square){
+
+		Chess.active = square;
+
+		console.log(square.getPiece());
+
+		if(Chess.active != undefined)
+			event.movePiece();
+		else if(square.hasPiece())
+			Chess.active = piece;
+
 	};
 
-	event.movePiece = function(square){
-		var prevPos = Chess.board.position;
-		var nextPos = square.getPosition();
-		Chess.board.position = {};
-		event.emptySquare(prevPos);
-		event.moveTo(nextPos);
+	event.movePiece = function(){
+		var originPosition = Chess.active.getPosition();
+		var originSquare = Chess.board.getSquare(originPosition.x, originPosition.y);
+		square.html(Chess.active);
+
+
+		Chess.active.html('');
+		Chess.active = undefined;
 	};
 
 	event.moveTo = function(position){
 		var square = Chess.board.getCase(position.y, position.x);
-		square.html(Chess.board.selected.getJquery());
-	};
-
-	event.emptySquare = function(position){
-		var square = Chess.board.getCase(position.y, position.x);
-		square.html('');
-	};
-
-	event.selectPiece = function(square){
-		Chess.board.selected = square.getPiece();
-		Chess.board.position = square.getPosition();
-
-		console.log(Chess.board.selected.getType());
+		square.html(Chess.active.getJquery());
+		Chess.active = undefined;
 	};
 
 	return event;

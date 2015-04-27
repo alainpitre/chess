@@ -26,16 +26,17 @@ function Square(x, y){
 
 	public.setPiece = function(p_id){
 		public.p_id = p_id;
-		private.addPieceToCase();
+		private.addPieceOnSquare();
 	};
 
-	private.addPieceToCase = function(){
+	private.addPieceOnSquare = function(){
 		var piece = Chess.pieces[public.p_id];
 		public.html(piece.getJquery());
 	};
 
 	public.getPiece = function(){
-		return Chess.pieces[public.p_id];
+		var pieceId = public.children().data('id');
+		return Chess.pieces[pieceId];
 	};
 
 	public.getPosition = function(){
@@ -57,7 +58,7 @@ function Square(x, y){
 
 	private.bindEvents = function(){
 		public.bind('click', function(){
-			Chess.events.clickCase(public);
+			Chess.events.clickSquare(public);
 		});
 	};
 

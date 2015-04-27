@@ -7,6 +7,7 @@ function Chess(){
 	public.cases = {};
 	public.board = undefined;
 	public.events = undefined;
+	public.active = undefined;
 
 	public.main = function(){
 		$("document").ready(private.documentReady);
