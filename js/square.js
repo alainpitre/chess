@@ -6,7 +6,6 @@ function Square(x, y){
 	public.x = 0;
 	public.y = 0;
 	public.className = "";
-	public.p_id = undefined;
 
 	private.construct = function(){
 		private.definePosition(x, y);

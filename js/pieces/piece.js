@@ -3,9 +3,9 @@ function Piece(type, player){
 	var public = {};
 	var private = {};
 
+	private.id = 0;
 	private.type = "";
 	private.player = "";
-	private.id = 0;
 
 	private.construct = function(){
 		private.type = type;
