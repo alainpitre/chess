@@ -8,8 +8,7 @@ function Pawn(player){
 	};
 
 	public.getMoves = function(){
-		var currentPosition = public.getPosition();
-		console.log(currentPosition);
+		console.log("pawn moved");
 	}
 
 	private.construct();

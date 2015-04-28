@@ -23,19 +23,11 @@ function Square(x, y){
 		return public.children().length > 0;
 	};
 
-	public.setPiece = function(p_id){
-		public.p_id = p_id;
-		private.addPieceOnSquare();
-	};
-
-	private.addPieceOnSquare = function(){
-		var piece = Chess.pieces[public.p_id];
-		public.html(piece.getJquery());
-	};
-
 	public.getPiece = function(){
-		var pieceId = public.children().data('id');
-		return Chess.pieces[pieceId];
+		if(public.hasPiece())
+			return Chess.pieces[public.children().data('id')];
+		else
+			return undefined;
 	};
 
 	public.getPosition = function(){

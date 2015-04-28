@@ -3,25 +3,35 @@ function Event(){
 	var event = {};
 
 	event.clickSquare = function(square){
-		if(Chess.active != undefined)
-			event.movePiece(square);
+		if(Chess.select != undefined)
+			event.moveTo(square);
+
 		else if(square.hasPiece())
-			Chess.active = square;
+			event.setActive(square);
+
 		else
-			Chess.active = undefined;
+			event.resetActive();
 	};
 
-	event.movePiece = function(square){
-		var piece = Chess.active.getPiece();
-		square.html(piece);
+	event.moveTo = function(square){
+		if(Chess.select.isEat(square)){
+			event.eat(square);
+		}
+	};
 
-		piece.getMoves();
+	event.eat = function(square){
+		var piece = square.getPiece();
+		square.html('');
+		Chess.board.eat.append(piece);
 		event.resetActive();
 	};
 
+	event.setActive = function(square){
+		Chess.select = square.getPiece();
+	};
+
 	event.resetActive = function(){
-		Chess.active.html('');
-		Chess.active = undefined;
+		Chess.select = undefined;
 	};
 
 	return event;

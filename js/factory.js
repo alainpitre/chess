@@ -40,7 +40,7 @@ Factory.loadKing = function(){
 
 Factory.addPieceOnSquare = function(piece, x, y){
 	var square = Chess.board.getSquare({'x' : x, 'y' : y});
-	Chess.pieces.push(piece);
+	Chess.pieces[piece.id] = piece;
 	square.html(piece);
 };
 

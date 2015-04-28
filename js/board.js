@@ -3,18 +3,27 @@ function Board($container){
 	var public = {};
 	var private = {};
 
+	public.eat = undefined;
+	public.board = undefined;
+
 	private.square = [];
-	private.board = undefined;
 
 	public.construct = function(){
-		private.initBoard($container);
+		private.initBoard();
+		private.initEat();
 		private.loadSquares();
 	};
 
-	private.initBoard = function($container){
-		private.board = $('<div>');
-		private.board.attr('id', 'board');
-		$container.html(private.board);
+	private.initBoard = function(){
+		public.board = $('<div>');
+		public.board.attr('id', 'board');
+		$container.append(public.board);
+	};
+
+	private.initEat = function(){
+		public.eat = $('<div>');
+		public.eat.attr('id', 'eat');
+		$container.append(public.eat);
 	};
 
 	private.loadSquares = function(){
@@ -30,7 +39,7 @@ function Board($container){
 		if(private.square[x] == undefined)
 			private.square[x] = {};
 		private.square[x][y] = square;
-		private.board.append(square);
+		public.board.append(square);
 	};
 
 	public.getSquare = function(position){

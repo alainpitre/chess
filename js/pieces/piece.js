@@ -3,14 +3,14 @@ function Piece(type, player){
 	var public = {};
 	var private = {};
 
-	private.id = 0;
-	private.type = "";
-	private.player = "";
+	public.id = 0;
+	public.type = "";
+	public.player = "";
 
 	private.construct = function(){
-		private.type = type;
-		private.player = player;
-		private.id = Chess.pieces.length;
+		public.type = type;
+		public.player = player;
+		public.id = Chess.pieces.length;
 		private.setJquery();
 	};
 
@@ -22,31 +22,24 @@ function Piece(type, player){
 		return public.parent().data('position');
 	};
 
-	public.getType = function(position){
-		return private.type;
-	};
-
-	public.getPlayer = function(position){
-		return private.player;
-	};
-
-	public.setIndex = function(index){
-		private.index = index;
+	public.isEat = function(square){
+		var piece = square.getPiece();
+		return piece != undefined && piece.player != public.player;
 	};
 
 	public.getMoves = function(){
-		console.warn('NO FUNCTION MOVES IMPLEMENTED');
+		console.warn(private.type+': NO MOVES IMPLEMENTED');
 		return [];
 	};
 
 	public.toString = function(){
-		console.log("piece: ", public.getType());
+		console.log("piece: ", public.type);
 	};
 
 	private.setJquery = function(){
 		var $piece = $('<div>')
 		$piece.addClass('piece');
-		$piece.data('id', private.id);
+		$piece.data('id', public.id);
 		$.extend(public, $piece);
 	}
 
