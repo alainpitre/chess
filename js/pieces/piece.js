@@ -7,12 +7,19 @@ function Piece(type, player){
 	public.type = "";
 	public.player = "";
 	public.position = {};
+	public.moves = undefined;
 
 	private.construct = function(){
 		public.type = type;
 		public.player = player;
 		public.id = Chess.pieces.length;
 		private.setJquery();
+	};
+
+	public.setup = function(position){
+		public.position = position;
+		public.moves = new Moves(position);
+		public.setMoves();
 	};
 
 	public.setHtml = function(html){
@@ -23,9 +30,21 @@ function Piece(type, player){
 		return Chess.board.getSquare(public.position);
 	};
 
-	public.getMoves = function(){
-		console.warn(private.type+': NO MOVES IMPLEMENTED');
-		return [];
+	public.isValidMove = function(square){
+		var position = square.getPosition();
+		console.log(public.moves.isValid(position));
+		return public.moves.targets[position.x+","+position.y] != undefined;
+	};
+
+	public.setMoves = function(){
+		//Redefined in all childrens class
+	};
+
+	public.showMoves = function(){
+		var moves = public.moves.targets;
+		for(var square in moves){
+			moves[square].addClass('active');
+		}
 	};
 
 	private.setJquery = function(){
@@ -33,7 +52,7 @@ function Piece(type, player){
 		$piece.addClass('piece');
 		$piece.data('id', public.id);
 		$.extend(public, $piece);
-	}
+	};
 
 	private.construct();
 	return public;

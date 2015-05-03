@@ -7,6 +7,10 @@ function Knight(player){
 		public.setHtml(['&#9816;', '&#9822;']);
 	};
 
+	public.setMoves = function(){
+		public.moves.setL();
+	};
+
 	private.construct();
 	return public;
 

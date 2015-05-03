@@ -24,7 +24,7 @@ function Square(x, y){
 	};
 
 	public.setPiece = function(piece){
-		piece.position = public.getPosition();
+		piece.setup(public.getPosition());
 		public.html(piece);
 	}
 

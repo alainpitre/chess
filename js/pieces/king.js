@@ -7,6 +7,11 @@ function King(player){
 		public.setHtml(['&#9812;', '&#9818;']);
 	};
 
+	public.setMoves = function(){
+		public.moves.setDiagonal(true);
+		public.moves.setLine(true);
+	};
+
 	private.construct();
 	return public;
 

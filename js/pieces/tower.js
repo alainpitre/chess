@@ -7,6 +7,10 @@ function Tower(player){
 		public.setHtml(['&#9814;', '&#9820;']);
 	};
 
+	public.setMoves = function(){
+		public.moves.setLine(false);
+	}
+
 	private.construct();
 	return public;
 

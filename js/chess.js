@@ -6,6 +6,7 @@ function Chess(){
 	public.pieces = [];
 	public.cases = {};
 	public.board = undefined;
+	public.moves = undefined;
 	public.select = undefined;
 	public.player = 1;
 

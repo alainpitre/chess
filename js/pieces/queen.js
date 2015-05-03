@@ -7,6 +7,11 @@ function Queen(player){
 		public.setHtml(['&#9813;', '&#9819;']);
 	};
 
+	public.setMoves = function(){
+		public.moves.setDiagonal(false);
+		public.moves.setLine(false);
+	};
+
 	private.construct();
 	return public;
 

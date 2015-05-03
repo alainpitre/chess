@@ -7,6 +7,10 @@ function Bishop(player){
 		public.setHtml(['&#9815;', '&#9821;']);
 	};
 
+	public.setMoves = function(){
+		public.moves.setDiagonal(false);
+	}
+
 	private.construct();
 	return public;
 

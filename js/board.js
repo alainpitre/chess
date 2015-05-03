@@ -43,11 +43,14 @@ function Board($container){
 	};
 
 	public.getSquare = function(position){
+		if(public.squareExist(position) == false)
+			return undefined;
 		return private.square[position.x][position.y];
+		
 	};
 
 	public.squareExist = function(position){
-		return private.square[position.x][position.y] != undefined;
+		return private.square[position.x] != undefined && private.square[position.x][position.y] != undefined;
 	}	
 
 	public.construct();
