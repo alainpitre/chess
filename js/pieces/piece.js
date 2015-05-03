@@ -6,6 +6,7 @@ function Piece(type, player){
 	public.id = 0;
 	public.type = "";
 	public.player = "";
+	public.position = {};
 
 	private.construct = function(){
 		public.type = type;
@@ -18,22 +19,13 @@ function Piece(type, player){
 		public.html(html[player]);
 	};
 
-	public.getPosition = function(){
-		return public.parent().data('position');
-	};
-
-	public.isEat = function(square){
-		var piece = square.getPiece();
-		return piece != undefined && piece.player != public.player;
+	public.getSquare = function(){
+		return Chess.board.getSquare(public.position);
 	};
 
 	public.getMoves = function(){
 		console.warn(private.type+': NO MOVES IMPLEMENTED');
 		return [];
-	};
-
-	public.toString = function(){
-		console.log("piece: ", public.type);
 	};
 
 	private.setJquery = function(){

@@ -23,6 +23,20 @@ function Square(x, y){
 		return public.children().length > 0;
 	};
 
+	public.setPiece = function(piece){
+		piece.position = public.getPosition();
+		public.html(piece);
+	}
+
+	public.isEmpty = function(){
+		return public.hasPiece() == false;
+	};
+
+	public.hasEnemy = function(){
+		var piece = public.getPiece();
+		return piece != undefined && piece.player != Chess.player;
+	};
+
 	public.getPiece = function(){
 		if(public.hasPiece())
 			return Chess.pieces[public.children().data('id')];
@@ -44,12 +58,13 @@ function Square(x, y){
 	private.setJquery = function(){
 		var $square = $('<div>');
 		$square.addClass(public.className);
+		$square.data('position', public.getPosition());
 		$.extend(public, $square);
 	}
 
 	private.bindEvents = function(){
 		public.bind('click', function(){
-			Chess.events.clickSquare(public);
+			event.clickSquare(public);
 		});
 	};
 

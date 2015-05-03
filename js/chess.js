@@ -6,16 +6,14 @@ function Chess(){
 	public.pieces = [];
 	public.cases = {};
 	public.board = undefined;
-	public.events = undefined;
 	public.select = undefined;
-	public.player = undefined;
+	public.player = 1;
 
 	public.main = function(){
 		$("document").ready(private.documentReady);
 	}
 
 	private.documentReady = function(){
-		public.events = new Event();
 		public.board = new Board($("#chess"));
 		private.loadChess();
 	};
