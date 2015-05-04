@@ -23,9 +23,10 @@ function Square(x, y){
 		return public.children().length > 0;
 	};
 
-	public.setPiece = function(piece){
-		piece.setup(public.getPosition());
-		public.html(piece);
+	public.setPiece = function(id){
+		var piece = Chess.pieces[id];
+		piece.position = public.getPosition();
+		public.append(piece.gethtml());
 	}
 
 	public.isEmpty = function(){
@@ -39,7 +40,7 @@ function Square(x, y){
 
 	public.getPiece = function(){
 		if(public.hasPiece())
-			return Chess.pieces[public.children().data('id')];
+			return Chess.pieces[public.children().getId()];
 		else
 			return undefined;
 	};

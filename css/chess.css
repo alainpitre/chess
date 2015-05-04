@@ -23,7 +23,6 @@
 	line-height: 60px;
 	text-align: center;
 	display: inline-block;
-	cursor: pointer;
 	vertical-align: top;
 }
 .case-light{
@@ -31,6 +30,10 @@
 }
 .case-dark{
 	background-color: #aaaaaa;
+}
+.active,
+.piece{
+	cursor: pointer;
 }
 .case-light.active{
 	background-color: #e3f7f8;

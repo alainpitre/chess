@@ -2,8 +2,8 @@ var Factory = {};
 
 Factory.loadPawn = function(){
 	for(var i = 0; i < 8; i++){
-		Factory.buildPion(i, 1, 0);
-		Factory.buildPion(i, 6, 1);
+		Factory.buildPawn(i, 1, 0);
+		Factory.buildPawn(i, 6, 1);
 	}
 };
 
@@ -41,7 +41,7 @@ Factory.loadKing = function(){
 Factory.addPieceOnSquare = function(piece, x, y){
 	var square = Chess.board.getSquare({'x' : x, 'y' : y});
 	Chess.pieces[piece.id] = piece;
-	square.setPiece(piece);
+	square.setPiece(piece.id);
 };
 
 Factory.buildKing = function(x, y, player){
@@ -64,7 +64,7 @@ Factory.buildTower = function(x, y, player){
 	Factory.addPieceOnSquare(new Tower(player), x, y);
 };
 
-Factory.buildPion = function(x, y, player){
+Factory.buildPawn = function(x, y, player){
 	Factory.addPieceOnSquare(new Pawn(player), x, y);
 };
 

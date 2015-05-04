@@ -1,19 +1,30 @@
-function Moves(position){
+function Moves(player){
 
 	public = {};
 	private = {};
 
 	public.targets = {};
-	public.position = {};
+	private.position = {};
+	public.player = "";
+	private.direction = 0;
 
 	public.construct = function(){
-		public.position = position;
+		public.player = player;
+	};
+
+	public.init = function(position, player){
+		private.direction = (player == 1) ? 1 : -1;
+		private.position = position;
+		public.player = player;
 		public.targets = {};
-		public.append(position);
 	};
 
 	public.getPosition = function(){
-		return {x : public.position.x, y : public.position.y};
+		return {x : private.position.x, y : private.position.y};
+	};
+
+	public.getSquares = function(){
+		return public.targets;
 	};
 
 	public.setDiagonal = function(isSingle){
@@ -49,24 +60,38 @@ function Moves(position){
 		private.add(0, -2, true);
 	};
 
-	public.append = function(position){
-		public.targets[position.x+','+position.y] = Chess.board.getSquare(position);
-	};
-
 	public.isValid = function(position){
 		return public.targets[position.x+","+position.y] != undefined;
+	};
+
+	private.addNextSquare = function(position){
+		var nextSquare = Chess.board.getSquare(position);
+		var piece = nextSquare.getPiece();
+
+		if(piece == undefined){
+			public.targets[position.x+","+position.y] = nextSquare;
+			return false;
+		}
+
+		if(piece != undefined && piece.player != public.player){
+			public.targets[position.x+","+position.y] = nextSquare;
+			return true;
+		}
+
+		return true;
 	};
 
 	private.add = function(x, y, isSingle){
 		var position = public.getPosition();
 		var stop = false;
+
 		while (stop == false) {
 
 	    	position.x += x;
-	    	position.y += y;
+	    	position.y += y * private.direction;
 
 	    	if(Chess.board.squareExist(position))
-	    		public.append(position);
+	    		stop = private.addNextSquare(position);
 	    	else
 	    		stop = true;
 
@@ -74,6 +99,7 @@ function Moves(position){
 	    		stop = true;
 
 		}
+
 	};
 
 	public.construct();

@@ -1,5 +1,9 @@
 var event = {};
 
+$.fn.getId = function(){
+	return $(this).data('id');
+};
+
 event.clickSquare = function(square){	
 	if(Chess.select != undefined)
 		event.move(square);
@@ -27,7 +31,7 @@ event.moveEat = function(to){
 event.moveTo = function(square){
 	if(Chess.select.isValidMove(square)){
 		Chess.select.getSquare().html('');
-		square.setPiece(Chess.select);
+		square.setPiece(Chess.select.id);
 		event.resetActive();
 	}
 };
@@ -35,14 +39,13 @@ event.moveTo = function(square){
 event.setActive = function(square){
 	$('.active').removeClass('active');
 	Chess.select = square.getPiece();
+	Chess.select.setMoves();
 	Chess.select.showMoves();
 };
 
 event.resetActive = function(){
 	$('.active').removeClass('active');
+	Chess.player = (Chess.player == 1) ? 0 : 1;
+	console.log('Now player '+Chess.player+' is playing');
 	Chess.select = undefined;
 };
-
-event.changeOfPlayer = function(){
-	Chess.player = (Chess.player == 1) ? 0 : 1;
-}

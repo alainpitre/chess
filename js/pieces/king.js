@@ -8,6 +8,7 @@ function King(player){
 	};
 
 	public.setMoves = function(){
+		public.moves.init(public.position, public.player);
 		public.moves.setDiagonal(true);
 		public.moves.setLine(true);
 	};

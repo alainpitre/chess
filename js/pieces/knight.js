@@ -8,6 +8,7 @@ function Knight(player){
 	};
 
 	public.setMoves = function(){
+		public.moves.init(public.position, public.player);
 		public.moves.setL();
 	};
 
