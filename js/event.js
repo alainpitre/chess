@@ -24,7 +24,7 @@ event.move = function(square){
 };
 
 event.moveEat = function(to){
-	Chess.board.eat.append(to.getPiece());
+	Chess.board.eat.append(to.getPiece().gethtml());
 	event.moveTo(to);	
 };
 

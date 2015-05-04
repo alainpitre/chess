@@ -26,7 +26,7 @@ function Square(x, y){
 	public.setPiece = function(id){
 		var piece = Chess.pieces[id];
 		piece.position = public.getPosition();
-		public.append(piece.gethtml());
+		public.html(piece.gethtml());
 	}
 
 	public.isEmpty = function(){
