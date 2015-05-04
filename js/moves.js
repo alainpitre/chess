@@ -5,18 +5,18 @@ function Moves(player){
 
 	public.targets = {};
 	private.position = {};
-	public.player = "";
+	private.player = "";
 	private.direction = 0;
 
 	public.construct = function(){
-		public.player = player;
+		private.player = player;
 	};
 
 	public.init = function(position){
 		private.direction = (Chess.player == 1) ? 1 : -1;
 		private.position = position;
 		public.targets = {};
-		console.log(public.player);
+		console.log(private.player);
 	};
 
 	public.getPosition = function(){
@@ -73,7 +73,7 @@ function Moves(player){
 			return false;
 		}
 
-		if(piece != undefined && piece.player != public.player){
+		if(piece != undefined && piece.player != private.player){
 			public.targets[position.x+","+position.y] = nextSquare;
 			return true;
 		}
