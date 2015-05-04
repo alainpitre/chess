@@ -1,7 +1,7 @@
 function Moves(player){
 
-	public = {};
-	private = {};
+	var public = {};
+	var private = {};
 
 	public.targets = {};
 	private.position = {};
@@ -12,11 +12,11 @@ function Moves(player){
 		public.player = player;
 	};
 
-	public.init = function(position, player){
-		private.direction = (player == 1) ? 1 : -1;
+	public.init = function(position){
+		private.direction = (Chess.player == 1) ? 1 : -1;
 		private.position = position;
-		public.player = player;
 		public.targets = {};
+		console.log(public.player);
 	};
 
 	public.getPosition = function(){
