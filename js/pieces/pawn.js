@@ -8,9 +8,11 @@ function Pawn(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.init(public.position, public.player);
+		public.moves.init(public.position);
+
 		if(public.isInitialPosition())
 			public.moves.setDouble();
+		
 		public.moves.setSingle();
 	};
 

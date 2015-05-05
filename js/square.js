@@ -38,6 +38,11 @@ function Square(x, y){
 		return piece != undefined && piece.player != Chess.player;
 	};
 
+	public.isPlayer = function(){
+		var piece = public.getPiece();
+		return piece != undefined && piece.player == Chess.player;
+	};
+
 	public.getPiece = function(){
 		if(public.hasPiece())
 			return Chess.pieces[public.children().getId()];

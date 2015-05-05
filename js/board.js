@@ -12,6 +12,7 @@ function Board($container){
 		private.initBoard();
 		private.initEat();
 		private.loadSquares();
+		private.loadPlayer();
 	};
 
 	private.initBoard = function(){
@@ -51,7 +52,13 @@ function Board($container){
 
 	public.squareExist = function(position){
 		return private.square[position.x] != undefined && private.square[position.x][position.y] != undefined;
-	}	
+	};
+
+	private.loadPlayer = function(){
+		var white = '<button onclick="Chess.loadPlayer(0);">WHITE</button>';
+		var black = '<button onclick="Chess.loadPlayer(1);">BLACK</button>';
+		public.board.prepend('<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>');
+	};
 
 	public.construct();
 	return public;

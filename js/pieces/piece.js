@@ -14,7 +14,7 @@ function Piece(type, player){
 		public.type 	= type;
 		public.player 	= player;
 		public.id 		= Chess.pieces.length;
-		public.moves 	= new Moves(player);
+		public.moves 	= new Moves(player, type);
 	};
 
 	public.setHtml = function(html){

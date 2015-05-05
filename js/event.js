@@ -7,11 +7,8 @@ $.fn.getId = function(){
 event.clickSquare = function(square){	
 	if(Chess.select != undefined)
 		event.move(square);
-	else if(square.hasPiece())
+	else if(square.isPlayer())
 		event.setActive(square);
-	else
-		event.resetActive();
-
 };
 
 event.move = function(square){
@@ -46,6 +43,6 @@ event.setActive = function(square){
 event.resetActive = function(){
 	$('.active').removeClass('active');
 	Chess.player = (Chess.player == 1) ? 0 : 1;
-	console.log('Now player '+Chess.player+' is playing');
+	console.log(Chess.getPlayerColor()+' is playing');
 	Chess.select = undefined;
 };

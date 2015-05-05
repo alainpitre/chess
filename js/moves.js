@@ -1,4 +1,4 @@
-function Moves(player){
+function Moves(player, type){
 
 	var public = {};
 	var private = {};
@@ -7,16 +7,17 @@ function Moves(player){
 	private.position = {};
 	private.player = "";
 	private.direction = 0;
+	private.type = "";
 
 	public.construct = function(){
 		private.player = player;
+		private.type = type;
 	};
 
 	public.init = function(position){
 		private.direction = (Chess.player == 1) ? 1 : -1;
 		private.position = position;
 		public.targets = {};
-		console.log(private.player);
 	};
 
 	public.getPosition = function(){
@@ -54,6 +55,8 @@ function Moves(player){
 
 	public.setSingle = function(){
 		private.add(0, -1, true);
+		private.add(1, -1, true);
+		private.add(-1, -1, true);
 	};
 
 	public.setDouble = function(){
@@ -64,18 +67,44 @@ function Moves(player){
 		return public.targets[position.x+","+position.y] != undefined;
 	};
 
+	private.isFront = function(square){
+		var position = square.getPosition();
+		return private.position.x == position.x;
+	};
+
+	private.isDiagonal = function(square){
+		return private.isFront(square) == false;
+	};
+
+	private.isPawn = function(){
+		return private.type == "pawn";
+	};
+
 	private.addNextSquare = function(position){
 		var nextSquare = Chess.board.getSquare(position);
-		var piece = nextSquare.getPiece();
 
-		if(piece == undefined){
+		if(nextSquare.hasEnemy() && private.isPawn() && private.isFront(nextSquare)){
+			return true;
+		}
+
+		if(nextSquare.hasEnemy() && private.isPawn() && private.isDiagonal(nextSquare)){
+			public.targets[position.x+","+position.y] = nextSquare;
+			return true;
+		}
+
+		if(nextSquare.isEmpty() && private.isPawn() && private.isFront(nextSquare)){
 			public.targets[position.x+","+position.y] = nextSquare;
 			return false;
 		}
 
-		if(piece != undefined && piece.player != private.player){
+		if(nextSquare.hasEnemy()){
 			public.targets[position.x+","+position.y] = nextSquare;
 			return true;
+		}
+
+		if(nextSquare.isEmpty() && private.isPawn() == false){
+			public.targets[position.x+","+position.y] = nextSquare;
+			return false;
 		}
 
 		return true;
