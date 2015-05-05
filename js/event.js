@@ -21,13 +21,13 @@ event.move = function(square){
 };
 
 event.moveEat = function(to){
-	Chess.board.eat.append(to.getPiece().gethtml());
+	Chess.board.eat.append(to.getPiece().getElement());
 	event.moveTo(to);	
 };
 
 event.moveTo = function(square){
 	if(Chess.select.isValidMove(square)){
-		Chess.select.getSquare().html('');
+		Chess.select.getSquare().empty();
 		square.setPiece(Chess.select.id);
 		event.resetActive();
 	}

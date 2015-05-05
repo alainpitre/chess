@@ -14,7 +14,7 @@ function Piece(type, player){
 		public.type 	= type;
 		public.player 	= player;
 		public.id 		= Chess.pieces.length;
-		public.moves 	= new Moves(player, type);
+		public.moves 	= new Moves(type);
 	};
 
 	public.setHtml = function(html){
@@ -26,8 +26,7 @@ function Piece(type, player){
 	};
 
 	public.isValidMove = function(square){
-		var position = square.getPosition();
-		return public.moves.isValid(position);
+		return public.moves.isValid(square.position);
 	};
 
 	public.setMoves = function(){
@@ -37,11 +36,11 @@ function Piece(type, player){
 	public.showMoves = function(){
 		var squares = public.moves.getSquares()
 		for(var key in squares){
-			squares[key].addClass('active');
+			squares[key].highlight();
 		}
 	};
 
-	public.gethtml = function(){
+	public.getElement = function(){
 		var $piece = $('<div>')
 		$piece.addClass('piece');
 		$piece.data('id', public.id);

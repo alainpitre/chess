@@ -40,14 +40,13 @@ function Board($container){
 		if(private.square[x] == undefined)
 			private.square[x] = {};
 		private.square[x][y] = square;
-		public.board.append(square);
+		public.board.append(square.getElement());
 	};
 
 	public.getSquare = function(position){
 		if(public.squareExist(position) == false)
 			return undefined;
 		return private.square[position.x][position.y];
-		
 	};
 
 	public.squareExist = function(position){

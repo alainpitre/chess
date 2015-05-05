@@ -1,32 +1,39 @@
 function Square(x, y){
 
+	var $square = $('<div>');
 	var public = {};
 	var private = {};
 
-	public.x = 0;
-	public.y = 0;
+	public.position = {};
 	public.className = "";
 
 	private.construct = function(){
-		private.definePosition(x, y);
+		private.setPosition(x, y);
 		private.setClassName(x, y);
-		private.setJquery();
-		private.bindEvents();
+		private.setSquare();
 	};
 
-	private.definePosition = function(x, y){
-		public.x = x;
-		public.y = y;
+	private.setPosition = function(x, y){
+		public.position.x = x;
+		public.position.y = y;
 	};
 
 	public.hasPiece = function(){
-		return public.children().length > 0;
+		return $square.children().length > 0;
 	};
 
 	public.setPiece = function(id){
 		var piece = Chess.pieces[id];
-		piece.position = public.getPosition();
-		public.html(piece.gethtml());
+		piece.position = public.position;
+		$square.html(piece.getElement());
+	}
+
+	public.empty = function(){
+		$square.html('');
+	}
+
+	public.highlight = function(){
+		$square.addClass('active');
 	}
 
 	public.isEmpty = function(){
@@ -45,13 +52,13 @@ function Square(x, y){
 
 	public.getPiece = function(){
 		if(public.hasPiece())
-			return Chess.pieces[public.children().getId()];
+			return Chess.pieces[$square.children().getId()];
 		else
 			return undefined;
 	};
 
 	public.getPosition = function(){
-		return { x : public.x, y : public.y };
+		return public.position;
 	};
 
 	private.setClassName = function(x, y){
@@ -61,11 +68,15 @@ function Square(x, y){
 			public.className = 'case-light';
 	};
 
-	private.setJquery = function(){
-		var $square = $('<div>');
+	private.setSquare = function(){
 		$square.addClass(public.className);
-		$square.data('position', public.getPosition());
-		$.extend(public, $square);
+		$square.bind('click', function(){
+			event.clickSquare(Chess.board.getSquare(public.getPosition()));
+		});
+	}
+
+	public.getElement = function(){
+		return $square;
 	}
 
 	private.bindEvents = function(){

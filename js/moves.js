@@ -1,23 +1,21 @@
-function Moves(player, type){
+function Moves(type){
 
 	var public = {};
 	var private = {};
 
-	public.targets = {};
+	private.squares = {};
 	private.position = {};
-	private.player = "";
 	private.direction = 0;
 	private.type = "";
 
 	public.construct = function(){
-		private.player = player;
 		private.type = type;
 	};
 
 	public.init = function(position){
 		private.direction = (Chess.player == 1) ? 1 : -1;
 		private.position = position;
-		public.targets = {};
+		private.squares = {};
 	};
 
 	public.getPosition = function(){
@@ -25,7 +23,7 @@ function Moves(player, type){
 	};
 
 	public.getSquares = function(){
-		return public.targets;
+		return private.squares;
 	};
 
 	public.setDiagonal = function(isSingle){
@@ -64,12 +62,11 @@ function Moves(player, type){
 	};
 
 	public.isValid = function(position){
-		return public.targets[position.x+","+position.y] != undefined;
+		return private.squares[position.x+","+position.y] != undefined;
 	};
 
 	private.isFront = function(square){
-		var position = square.getPosition();
-		return private.position.x == position.x;
+		return private.position.x == square.position.x;
 	};
 
 	private.isDiagonal = function(square){
@@ -80,34 +77,37 @@ function Moves(player, type){
 		return private.type == "pawn";
 	};
 
-	private.addNextSquare = function(position){
-		var nextSquare = Chess.board.getSquare(position);
+	private.addSquare = function(position){
 
-		if(nextSquare.hasEnemy() && private.isPawn() && private.isFront(nextSquare)){
+		var next = Chess.board.getSquare(position);
+
+		if(next == undefined)
+			return true;
+
+		if(next.hasEnemy() && private.isPawn() && private.isFront(next)){
 			return true;
 		}
 
-		if(nextSquare.hasEnemy() && private.isPawn() && private.isDiagonal(nextSquare)){
-			public.targets[position.x+","+position.y] = nextSquare;
+		if(next.hasEnemy() && private.isPawn() && private.isDiagonal(next)){
+			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
 
-		if(nextSquare.isEmpty() && private.isPawn() && private.isFront(nextSquare)){
-			public.targets[position.x+","+position.y] = nextSquare;
+		if(next.isEmpty() && private.isPawn() && private.isFront(next)){
+			private.squares[position.x+","+position.y] = next;
 			return false;
 		}
 
-		if(nextSquare.hasEnemy()){
-			public.targets[position.x+","+position.y] = nextSquare;
+		if(next.hasEnemy()){
+			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
 
-		if(nextSquare.isEmpty() && private.isPawn() == false){
-			public.targets[position.x+","+position.y] = nextSquare;
+		if(next.isEmpty() && private.isPawn() == false){
+			private.squares[position.x+","+position.y] = next;
 			return false;
 		}
 
-		return true;
 	};
 
 	private.add = function(x, y, isSingle){
@@ -119,10 +119,7 @@ function Moves(player, type){
 	    	position.x += x;
 	    	position.y += y * private.direction;
 
-	    	if(Chess.board.squareExist(position))
-	    		stop = private.addNextSquare(position);
-	    	else
-	    		stop = true;
+	    		stop = private.addSquare(position);
 
 	    	if(isSingle)
 	    		stop = true;
