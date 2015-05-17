@@ -29,13 +29,13 @@ Factory.loadBishop = function(){
 };
 
 Factory.loadQueen = function(){
-	Factory.buildQueen(3, 0, 0);
-	Factory.buildQueen(3, 7, 1);
+	Factory.buildQueen(4, 0, 0);
+	Factory.buildQueen(4, 7, 1);
 };
 
 Factory.loadKing = function(){
-	Factory.buildKing(4, 0, 0);
-	Factory.buildKing(4, 7, 1);
+	Factory.buildKing(3, 0, 0);
+	Factory.buildKing(3, 7, 1);
 };
 
 Factory.addPieceOnSquare = function(piece, x, y){

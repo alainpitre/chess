@@ -4,20 +4,20 @@ function Board($container){
 	var private = {};
 
 	public.eat = undefined;
-	public.html = undefined;
+	public.node = undefined;
 
 	private.square = [];
 
 	public.construct = function(){
-		private.setHtml();
+		private.setNode();
 		private.loadPlayer();
 		private.loadSquares();
 	};
 
-	private.setHtml = function(){
-		public.html = document.createElement("div");
-		public.html.setAttribute('id', 'board');
-		document.getElementById('chess').appendChild(public.html);
+	private.setNode = function(){
+		public.node = document.createElement("div");
+		public.node.setAttribute('id', 'board');
+		document.getElementById('chess').appendChild(public.node);
 	};
 
 	private.loadSquares = function(){
@@ -33,7 +33,7 @@ function Board($container){
 		if(private.square[x] == undefined)
 			private.square[x] = {};
 		private.square[x][y] = square;
-		public.html.appendChild(square.html);
+		public.node.appendChild(square.node);
 	};
 
 	public.getSquare = function(position){
@@ -47,13 +47,13 @@ function Board($container){
 	};
 
 	public.removeStart = function() {
-		public.html.removeChild(document.getElementById("player"));
+		public.node.removeChild(document.getElementById("player"));
 	}
 
 	private.loadPlayer = function(){
 		var white = '<button onclick="Chess.setPlayer(0);">WHITE</button>';
 		var black = '<button onclick="Chess.setPlayer(1);">BLACK</button>';
-		public.html.innerHTML += '<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>';
+		public.node.innerHTML += '<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>';
 	};
 
 	public.construct();

@@ -5,12 +5,12 @@ function Square(x, y){
 
 	public.position = {};
 	public.className = "";
-	public.html = undefined;
+	public.node = undefined;
 
 	private.construct = function(){
 		private.setPosition(x, y);
 		private.setClassName(x, y);
-		private.setSquare();
+		private.setNode();
 	};
 
 	private.setPosition = function(x, y){
@@ -19,26 +19,26 @@ function Square(x, y){
 	};
 
 	public.hasPiece = function(){
-		return public.html.childNodes.length > 0;
+		return public.node.childNodes.length > 0;
 	};
 
 	public.setPiece = function(piece){
 		public.empty();
 		piece.position = public.position;
-		public.html.appendChild(piece.html);
+		public.node.appendChild(piece.node);
 	}
 
 	public.empty = function(){
-		if(public.html.firstChild != undefined)
-			public.html.removeChild(public.html.firstChild);
+		if(public.node.firstChild != undefined)
+			public.node.removeChild(public.node.firstChild);
 	}
 
 	public.desactivate = function(){
-		public.html.className = public.className;
+		public.node.className = public.className;
 	}
 
 	public.activate = function(){
-		public.html.className += " active";
+		public.node.className += " active";
 	}
 
 	public.isEmpty = function(){
@@ -57,7 +57,7 @@ function Square(x, y){
 
 	public.getPiece = function(){
 		if(public.hasPiece())
-			return public.html.firstElementChild.object;
+			return public.node.firstElementChild.object;
 		else
 			return undefined;
 	};
@@ -69,10 +69,10 @@ function Square(x, y){
 			public.className = 'case-light';
 	};
 
-	private.setSquare = function(){
-		public.html = document.createElement("div");
-		public.html.setAttribute('class', public.className);
-		public.html.addEventListener('click', function(){
+	private.setNode = function(){
+		public.node = document.createElement("div");
+		public.node.setAttribute('class', public.className);
+		public.node.addEventListener('click', function(){
 			event.clickSquare(Chess.board.getSquare(public.position));
 		});
 	}

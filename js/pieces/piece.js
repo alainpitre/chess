@@ -7,19 +7,23 @@ function Piece(type, player){
 	public.player = "";
 	public.position = {};
 	public.moves = undefined;
-	public.html = undefined;
+	public.node = undefined;
 
 	private.construct = function(){
 		public.type 	= type;
 		public.player 	= player;
 		public.moves 	= new Moves(type);
+		public.setNode();
+	};
+
+	public.setNode = function(){
+		public.node = document.createElement("div");
+		public.node.setAttribute('class', 'piece');
+		public.node.object = public; //To keep reference
 	};
 
 	public.setHtml = function(html){
-		public.html = document.createElement("div");
-		public.html.setAttribute('class', 'piece');
-		public.html.object = public; //To keep reference
-		public.html.innerHTML = html[player];
+		public.node.innerHTML = html[player];
 	};
 
 	public.getSquare = function(){
