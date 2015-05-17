@@ -38,7 +38,7 @@ event.setActive = function(square){
 
 event.resetActive = function(){
 	Chess.select.hideMoves();
-	Chess.player = (Chess.player == 1) ? 0 : 1;
-	console.log(Chess.getPlayerColor()+' is playing');
+	Chess.updatePlayer();
+	console.log(Chess.player.getColor()+' is playing');
 	Chess.select = undefined;
 };

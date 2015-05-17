@@ -13,7 +13,7 @@ function Moves(type){
 	};
 
 	public.init = function(position){
-		private.direction = (Chess.player == 1) ? 1 : -1;
+		private.direction = (Chess.player.number == 1) ? 1 : -1;
 		private.position = position;
 		private.squares = {};
 	};

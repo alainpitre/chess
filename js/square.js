@@ -47,12 +47,12 @@ function Square(x, y){
 
 	public.hasEnemy = function(){
 		var piece = public.getPiece();
-		return piece != undefined && piece.player != Chess.player;
+		return piece != undefined && piece.player.number != Chess.player.number;
 	};
 
 	public.isPlayer = function(){
 		var piece = public.getPiece();
-		return piece != undefined && piece.player == Chess.player;
+		return piece != undefined && piece.player.number == Chess.player.number;
 	};
 
 	public.getPiece = function(){

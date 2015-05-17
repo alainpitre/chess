@@ -4,22 +4,27 @@ function Piece(type, player){
 	var private = {};
 
 	public.type = "";
-	public.player = "";
 	public.position = {};
 	public.moves = undefined;
 	public.node = undefined;
+	public.player = undefined
 
 	private.construct = function(){
 		public.type 	= type;
-		public.player 	= player;
+		public.player 	= Chess.playerList[player];
 		public.moves 	= new Moves(type);
 		public.setNode();
+		private.addPieceToPlayer();
 	};
 
 	public.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', 'piece');
 		public.node.object = public; //To keep reference
+	};
+
+	private.addPieceToPlayer = function(){
+		public.player.pieces[public.player.pieces.length] = public;
 	};
 
 	public.setHtml = function(html){
