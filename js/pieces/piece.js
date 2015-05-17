@@ -3,22 +3,23 @@ function Piece(type, player){
 	var public = {};
 	var private = {};
 
-	public.id = 0;
 	public.type = "";
 	public.player = "";
 	public.position = {};
 	public.moves = undefined;
-	public.html = "";
+	public.html = undefined;
 
 	private.construct = function(){
 		public.type 	= type;
 		public.player 	= player;
-		public.id 		= Chess.pieces.length;
 		public.moves 	= new Moves(type);
 	};
 
 	public.setHtml = function(html){
-		public.html = html[player];
+		public.html = document.createElement("div");
+		public.html.setAttribute('class', 'piece');
+		public.html.object = public; //To keep reference
+		public.html.innerHTML = html[player];
 	};
 
 	public.getSquare = function(){
@@ -36,16 +37,15 @@ function Piece(type, player){
 	public.showMoves = function(){
 		var squares = public.moves.getSquares()
 		for(var key in squares){
-			squares[key].highlight();
+			squares[key].activate();
 		}
 	};
 
-	public.getElement = function(){
-		var $piece = $('<div>')
-		$piece.addClass('piece');
-		$piece.data('id', public.id);
-		$piece.html(public.html);
-		return $piece;
+	public.hideMoves = function(){
+		var squares = public.moves.getSquares()
+		for(var key in squares){
+			squares[key].desactivate();
+		}
 	};
 
 	private.construct();

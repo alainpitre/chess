@@ -1,11 +1,11 @@
 function Square(x, y){
 
-	var $square = $('<div>');
 	var public = {};
 	var private = {};
 
 	public.position = {};
 	public.className = "";
+	public.html = undefined;
 
 	private.construct = function(){
 		private.setPosition(x, y);
@@ -19,21 +19,26 @@ function Square(x, y){
 	};
 
 	public.hasPiece = function(){
-		return $square.children().length > 0;
+		return public.html.childNodes.length > 0;
 	};
 
-	public.setPiece = function(id){
-		var piece = Chess.pieces[id];
+	public.setPiece = function(piece){
+		public.empty();
 		piece.position = public.position;
-		$square.html(piece.getElement());
+		public.html.appendChild(piece.html);
 	}
 
 	public.empty = function(){
-		$square.html('');
+		if(public.html.firstChild != undefined)
+			public.html.removeChild(public.html.firstChild);
 	}
 
-	public.highlight = function(){
-		$square.addClass('active');
+	public.desactivate = function(){
+		public.html.className = public.className;
+	}
+
+	public.activate = function(){
+		public.html.className += " active";
 	}
 
 	public.isEmpty = function(){
@@ -52,13 +57,9 @@ function Square(x, y){
 
 	public.getPiece = function(){
 		if(public.hasPiece())
-			return Chess.pieces[$square.children().getId()];
+			return public.html.firstElementChild.object;
 		else
 			return undefined;
-	};
-
-	public.getPosition = function(){
-		return public.position;
 	};
 
 	private.setClassName = function(x, y){
@@ -69,21 +70,12 @@ function Square(x, y){
 	};
 
 	private.setSquare = function(){
-		$square.addClass(public.className);
-		$square.bind('click', function(){
-			event.clickSquare(Chess.board.getSquare(public.getPosition()));
+		public.html = document.createElement("div");
+		public.html.setAttribute('class', public.className);
+		public.html.addEventListener('click', function(){
+			event.clickSquare(Chess.board.getSquare(public.position));
 		});
 	}
-
-	public.getElement = function(){
-		return $square;
-	}
-
-	private.bindEvents = function(){
-		public.bind('click', function(){
-			event.clickSquare(public);
-		});
-	};
 
 	private.construct();
 	return public;

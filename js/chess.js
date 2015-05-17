@@ -3,19 +3,17 @@ function Chess(){
 	var public = {};
 	var private = {};
 
-	public.pieces = [];
 	public.board = undefined;
-	public.moves = undefined;
 	public.select = undefined;
 	public.player = 1;
 	public.color = ['WHITE', 'BLACK'];
 
 	public.main = function(){
-		$("document").ready(private.documentReady);
+		window.addEventListener('load', private.documentReady, false )
 	}
 
 	private.documentReady = function(){
-		public.board = new Board($("#chess"));
+		public.board = new Board();
 		private.loadChess();
 	};
 
@@ -32,9 +30,9 @@ function Chess(){
 		return public.color[public.player];
 	};
 
-	public.loadPlayer = function(player){
+	public.setPlayer = function(player){
 		public.player = player;
-		$('#player').remove();
+		public.board.removeStart();
 		console.log(public.getPlayerColor()+' is starting');
 	};
 

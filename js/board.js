@@ -4,27 +4,20 @@ function Board($container){
 	var private = {};
 
 	public.eat = undefined;
-	public.board = undefined;
+	public.html = undefined;
 
 	private.square = [];
 
 	public.construct = function(){
-		private.initBoard();
-		private.initEat();
-		private.loadSquares();
+		private.setHtml();
 		private.loadPlayer();
+		private.loadSquares();
 	};
 
-	private.initBoard = function(){
-		public.board = $('<div>');
-		public.board.attr('id', 'board');
-		$container.append(public.board);
-	};
-
-	private.initEat = function(){
-		public.eat = $('<div>');
-		public.eat.attr('id', 'eat');
-		$container.append(public.eat);
+	private.setHtml = function(){
+		public.html = document.createElement("div");
+		public.html.setAttribute('id', 'board');
+		document.getElementById('chess').appendChild(public.html);
 	};
 
 	private.loadSquares = function(){
@@ -40,7 +33,7 @@ function Board($container){
 		if(private.square[x] == undefined)
 			private.square[x] = {};
 		private.square[x][y] = square;
-		public.board.append(square.getElement());
+		public.html.appendChild(square.html);
 	};
 
 	public.getSquare = function(position){
@@ -53,10 +46,14 @@ function Board($container){
 		return private.square[position.x] != undefined && private.square[position.x][position.y] != undefined;
 	};
 
+	public.removeStart = function() {
+		public.html.removeChild(document.getElementById("player"));
+	}
+
 	private.loadPlayer = function(){
-		var white = '<button onclick="Chess.loadPlayer(0);">WHITE</button>';
-		var black = '<button onclick="Chess.loadPlayer(1);">BLACK</button>';
-		public.board.prepend('<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>');
+		var white = '<button onclick="Chess.setPlayer(0);">WHITE</button>';
+		var black = '<button onclick="Chess.setPlayer(1);">BLACK</button>';
+		public.html.innerHTML += '<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>';
 	};
 
 	public.construct();
