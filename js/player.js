@@ -6,6 +6,8 @@ function Player(id){
 	public.id = 0;
 	public.color = ['WHITE', 'BLACK'];
 	public.pieces = [];
+	public.isCheck = false;
+	public.enemy = undefined;
 
 	private.construct = function(){
 		public.id = id;
@@ -17,9 +19,20 @@ function Player(id){
 		private.loadKing();
 	};
 
+	public.updateMoves = function(){
+		var hasEnemyCheck = false;
+		for(var i = 0; i < public.pieces.length; i++){
+			public.pieces[i].setMoves();
+			if(public.pieces[i].canEatKing()){
+				hasEnemyCheck = true;
+			}
+		}
+		public.enemy.isCheck = hasEnemyCheck;
+	};
+
 	public.getColor = function(){
 		return public.color[public.id];
-	}
+	};
 
 	private.loadPawn = function(){
 		var row = (public.id == 0) ? 1 : 6;

@@ -45,14 +45,29 @@ function Square(x, y){
 		return public.hasPiece() == false;
 	};
 
+	public.isEnemy = function(player){
+		var piece = public.getPiece();
+		return piece != undefined && piece.player.id != player.id;
+	};
+
+	public.isEmptyOrEnemy = function(player){
+		var piece = public.getPiece();
+		return piece == undefined || piece.player.id != player.id;
+	};
+
 	public.hasEnemy = function(){
 		var piece = public.getPiece();
-		return piece != undefined && piece.player.id != Chess.player.id;
+		return piece != undefined && piece.player.id != Chess.playing.id;
+	};
+
+	public.hasKing = function(){
+		var piece = public.getPiece();
+		return piece != undefined && piece.type == "king";
 	};
 
 	public.isPlayer = function(){
 		var piece = public.getPiece();
-		return piece != undefined && piece.player.id == Chess.player.id;
+		return piece != undefined && piece.player.id == Chess.playing.id;
 	};
 
 	public.getPiece = function(){

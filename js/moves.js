@@ -1,25 +1,24 @@
-function Moves(type){
+function Moves(piece){
 
 	var public = {};
 	var private = {};
 
 	private.squares = {};
-	private.position = {};
 	private.direction = 0;
-	private.type = "";
+	private.piece = undefined;
 
 	public.construct = function(){
-		private.type = type;
+		private.piece = piece;
+		private.direction = (piece.player.id == 1) ? 1 : -1;
 	};
 
-	public.init = function(position, playerId){
-		private.direction = (playerId == 1) ? 1 : -1;
-		private.position = position;
+	public.reset = function(){
+		private.piece.player.enemy.isCheck = false;
 		private.squares = {};
 	};
 
 	public.getPosition = function(){
-		return {x : private.position.x, y : private.position.y};
+		return {x : private.piece.position.x, y : private.piece.position.y};
 	};
 
 	public.getSquares = function(){
@@ -66,7 +65,7 @@ function Moves(type){
 	};
 
 	private.isFront = function(square){
-		return private.position.x == square.position.x;
+		return private.piece.position.x == square.position.x;
 	};
 
 	private.isDiagonal = function(square){
@@ -74,21 +73,22 @@ function Moves(type){
 	};
 
 	private.isPawn = function(){
-		return private.type == "pawn";
+		return private.piece.type == "pawn";
 	};
 
 	private.addSquare = function(position){
 
 		var next = Chess.board.getSquare(position);
+		var player = private.piece.player;
 
-		if(next == undefined)
+		if(private.isPossible(next) == false)
 			return true;
 
-		if(next.hasEnemy() && private.isPawn() && private.isFront(next)){
+		if(next.isEnemy(player) && private.isPawn() && private.isFront(next)){
 			return true;
 		}
 
-		if(next.hasEnemy() && private.isPawn() && private.isDiagonal(next)){
+		if(next.isEnemy(player) && private.isPawn() && private.isDiagonal(next)){
 			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
@@ -98,7 +98,7 @@ function Moves(type){
 			return false;
 		}
 
-		if(next.hasEnemy()){
+		if(next.isEnemy(player)){
 			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
@@ -108,6 +108,13 @@ function Moves(type){
 			return false;
 		}
 
+	};
+
+	private.isPossible = function(square){
+		if(square != undefined)
+			return square.isEmptyOrEnemy(private.piece.player);
+		else
+			return false;
 	};
 
 	private.add = function(x, y, isSingle){

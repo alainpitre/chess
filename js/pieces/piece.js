@@ -10,9 +10,9 @@ function Piece(type, player){
 	public.player = undefined
 
 	private.construct = function(){
-		public.type 	= type;
-		public.player 	= player;
-		public.moves 	= new Moves(type);
+		public.type = type;
+		public.player = player;
+		public.moves = new Moves(public);
 		public.setNode();
 	};
 
@@ -43,6 +43,16 @@ function Piece(type, player){
 			return (public.player.id == 0) ? 1 : 6;
 		else
 			return (public.player.id == 0) ? 0 : 7;
+	};
+
+	public.canEatKing = function(){
+		var squares = public.moves.getSquares();
+		for(var key in squares){
+			var piece = squares[key].getPiece();
+			if(squares[key].isEnemy(public.player) && squares[key].hasKing())
+				return true;
+		}
+		return false;
 	};
 
 	public.showMoves = function(){

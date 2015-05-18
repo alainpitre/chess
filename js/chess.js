@@ -5,8 +5,9 @@ function Chess(){
 
 	public.board = undefined;
 	public.select = undefined;
-	public.player = undefined;
-	public.playerList = [];
+	public.playing = undefined;
+	public.white = undefined;
+	public.black = undefined;
 
 	public.main = function(){
 		window.addEventListener('load', private.documentReady, false )
@@ -18,20 +19,25 @@ function Chess(){
 	};
 
 	private.loadPlayer = function(){
-		public.playerList[0] = new Player(0);
-		public.playerList[1] = new Player(1);
+		public.white = new Player(0);
+		public.black = new Player(1);
+		public.white.enemy = public.black;
+		public.black.enemy = public.white;
 	};
 
-	public.getEnemy = function() {
-		return public.playerList[(public.player.id != 1) ? 0 : 1];
+	public.getNextPlayerId = function(){
+		return (public.playing.id == 1) ? 0 : 1;
 	};
 
-	public.updatePlayer = function(){
-		public.player = public.playerList[(public.player.id == 1) ? 0 : 1];
+	public.updatePlayer = function(id){
+		id = (id == undefined) ? public.getNextPlayerId() : id;
+		public.playing = (id == 1) ? public.black : public.white;
+		public.white.updateMoves();
+		public.black.updateMoves();
 	};
 
 	public.setPlayer = function(id){
-		public.player = public.playerList[id];
+		public.updatePlayer(id);
 		public.board.removeStart();
 	};
 

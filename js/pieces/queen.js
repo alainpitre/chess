@@ -8,7 +8,7 @@ function Queen(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.init(public.position, public.player);
+		public.moves.reset();
 		public.moves.setDiagonal(false);
 		public.moves.setLine(false);
 	};
