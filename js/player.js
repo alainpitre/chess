@@ -11,6 +11,10 @@ function Player(id){
 
 	private.construct = function(){
 		public.id = id;
+		private.loadPieces();
+	};
+
+	private.loadPieces = function(){
 		private.loadPawn();
 		private.loadTower();
 		private.loadKinght();

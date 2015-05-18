@@ -38,13 +38,6 @@ event.setActive = function(square){
 event.resetActive = function(){
 	Chess.select.hideMoves();
 	Chess.updatePlayer();
-	event.showCheck();
+	Chess.showCheck();
 	Chess.select = undefined;
 };
-
-event.showCheck = function(){
-	if(Chess.white.isCheck)
-		alert('Player White is check.');
-	if(Chess.black.isCheck)
-		alert('Player Black is check.');
-}

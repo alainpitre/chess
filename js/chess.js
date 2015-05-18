@@ -41,6 +41,13 @@ function Chess(){
 		public.board.removeStart();
 	};
 
+	public.showCheck = function(){
+		if(public.white.isCheck)
+			alert('Player White is check.');
+		if(public.black.isCheck)
+			alert('Player Black is check.');
+	};
+
 	public.main();
 	return public;
 
