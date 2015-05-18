@@ -8,7 +8,7 @@ function Pawn(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.init(public.position);
+		public.moves.init(public.position, public.player.id);
 
 		if(public.isInitialPosition())
 			public.moves.setDouble();
@@ -17,9 +17,9 @@ function Pawn(player){
 	};
 
 	public.isInitialPosition = function(){
-		if(player == 1 && public.position.y == 6)
+		if(public.player.id == 1 && public.position.y == 6)
 			return true;
-		if(player == 0 && public.position.y == 1)
+		if(public.player.id == 0 && public.position.y == 1)
 			return true;
 		return false;
 	};

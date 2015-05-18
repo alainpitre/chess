@@ -12,8 +12,8 @@ function Moves(type){
 		private.type = type;
 	};
 
-	public.init = function(position){
-		private.direction = (Chess.player.number == 1) ? 1 : -1;
+	public.init = function(position, playerId){
+		private.direction = (playerId == 1) ? 1 : -1;
 		private.position = position;
 		private.squares = {};
 	};

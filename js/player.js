@@ -1,19 +1,65 @@
-function Player(number){
+function Player(id){
 
 	var public = {};
 	var private = {};
 
-	public.number = 0;
+	public.id = 0;
 	public.color = ['WHITE', 'BLACK'];
 	public.pieces = [];
 
 	private.construct = function(){
-		public.number = number;
+		public.id = id;
+		private.loadPawn();
+		private.loadTower();
+		private.loadKinght();
+		private.loadBishop();
+		private.loadQueen();
+		private.loadKing();
 	};
 
 	public.getColor = function(){
-		return public.color[public.number];
+		return public.color[public.id];
 	}
+
+	private.loadPawn = function(){
+		var row = (public.id == 0) ? 1 : 6;
+		for(var i = 0; i < 8; i++){
+			private.addPieceOnSquare(new Pawn(public), i, row);
+		}
+	};
+
+	private.loadTower = function(){
+		var row = (public.id == 0) ? 0 : 7;
+		private.addPieceOnSquare(new Tower(public), 0, row);
+		private.addPieceOnSquare(new Tower(public), 7, row);
+	};
+
+	private.loadKinght = function(){
+		var row = (public.id == 0) ? 0 : 7;
+		private.addPieceOnSquare(new Knight(public), 1, row);
+		private.addPieceOnSquare(new Knight(public), 6, row);
+	};
+
+	private.loadBishop = function(){
+		var row = (public.id == 0) ? 0 : 7;
+		private.addPieceOnSquare(new Bishop(public), 2, row);
+		private.addPieceOnSquare(new Bishop(public), 5, row);
+	};
+
+	private.loadQueen = function(){
+		var row = (public.id == 0) ? 0 : 7;
+		private.addPieceOnSquare(new Queen(public), 4, row);
+	};
+
+	private.loadKing = function(){
+		var row = (public.id == 0) ? 0 : 7;
+		private.addPieceOnSquare(new King(public), 3, row);
+	};
+
+	private.addPieceOnSquare = function(piece, x, y){
+		var square = Chess.board.getSquare({'x' : x, 'y' : y});
+		square.setPiece(piece);
+	};
 
 	private.construct();
 	return public;

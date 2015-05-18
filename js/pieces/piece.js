@@ -11,10 +11,9 @@ function Piece(type, player){
 
 	private.construct = function(){
 		public.type 	= type;
-		public.player 	= Chess.playerList[player];
+		public.player 	= player;
 		public.moves 	= new Moves(type);
 		public.setNode();
-		private.addPieceToPlayer();
 	};
 
 	public.setNode = function(){
@@ -23,12 +22,8 @@ function Piece(type, player){
 		public.node.object = public; //To keep reference
 	};
 
-	private.addPieceToPlayer = function(){
-		public.player.pieces[public.player.pieces.length] = public;
-	};
-
 	public.setHtml = function(html){
-		public.node.innerHTML = html[player];
+		public.node.innerHTML = html[player.id];
 	};
 
 	public.getSquare = function(){
