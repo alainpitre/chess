@@ -33,7 +33,6 @@ function Chess(){
 	public.setPlayer = function(id){
 		public.player = public.playerList[id];
 		public.board.removeStart();
-		console.log(public.player.getColor()+' is starting');
 	};
 
 	public.main();

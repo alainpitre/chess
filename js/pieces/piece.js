@@ -38,8 +38,15 @@ function Piece(type, player){
 		//Redefined in all childrens class
 	};
 
+	public.getStartingRow = function(){
+		if(public.type == "pawn")
+			return (public.player.id == 0) ? 1 : 6;
+		else
+			return (public.player.id == 0) ? 0 : 7;
+	};
+
 	public.showMoves = function(){
-		var squares = public.moves.getSquares()
+		var squares = public.moves.getSquares();
 		for(var key in squares){
 			squares[key].activate();
 		}
