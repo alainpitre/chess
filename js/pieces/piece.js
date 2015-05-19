@@ -63,7 +63,8 @@ function Piece(type, player){
 	};
 
 	public.hideMoves = function(){
-		var squares = public.moves.getSquares()
+		var squares = public.moves.getSquares();
+		console.log(squares);
 		for(var key in squares){
 			squares[key].desactivate();
 		}

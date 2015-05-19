@@ -1,43 +1,49 @@
 var event = {};
 
 event.clickSquare = function(square){
-	if(Chess.select != undefined)
+	var piece = square.getPiece();
+
+	if(Validation.isPlayerPiece(piece))
+		event.selectPiece(piece);
+
+	else if(Validation.isDestination(square))
 		event.move(square);
-	else if(square.isPlayer())
-		event.setActive(square);
+
 };
 
 event.move = function(square){
 	if(square.hasEnemy())
-		event.moveEat(square);
-	else if(square.isEmpty())
-		event.moveTo(square)
+		event.moveEat(Chess.select.getSquare(), square);
 	else
-		event.setActive(square);
+		event.moveTo(Chess.select.getSquare(), square);
 };
 
-event.moveEat = function(to){
-	event.moveTo(to);
+event.moveEat = function(from, to){
+	event.moveTo(from, to);
 };
 
-event.moveTo = function(square){
-	if(Chess.select.isValidMove(square)){
-		Chess.select.getSquare().empty();
-		square.setPiece(Chess.select);
-		event.resetActive();
-	}
+event.moveFromTo = function(from, to){
+	from.empty();
+	to.setPiece(Chess.select);
+	Chess.updatePlayer();
 };
 
-event.setActive = function(square){
-	if(Chess.select != undefined)
-		Chess.select.hideMoves();
-	Chess.select = square.getPiece();
+event.moveTo = function(from, to){
+	event.moveFromTo(from, to);
+	Chess.showCheck();
+	if(Chess.playing.isCheck)
+		event.moveFromTo(from, to);
+	else
+		Chess.setNextPlayer();
+	Chess.resetSelect();
+};
+
+event.selectPiece = function(piece){
+	Chess.resetSelect();
+	Chess.select = piece;
 	Chess.select.showMoves();
 };
 
-event.resetActive = function(){
-	Chess.select.hideMoves();
-	Chess.updatePlayer();
-	Chess.showCheck();
-	Chess.select = undefined;
+event.moveBack = function(){
+
 };

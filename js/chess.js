@@ -30,15 +30,27 @@ function Chess(){
 	};
 
 	public.updatePlayer = function(id){
-		id = (id == undefined) ? public.getNextPlayerId() : id;
-		public.playing = (id == 1) ? public.black : public.white;
 		public.white.updateMoves();
 		public.black.updateMoves();
 	};
 
+	public.setNextPlayer = function(id){
+		id = (id == undefined) ? public.getNextPlayerId() : id;
+		public.playing = (id == 1) ? public.black : public.white;
+	};
+
+
 	public.setPlayer = function(id){
-		public.updatePlayer(id);
+		public.setNextPlayer(id);
+		public.updatePlayer();
 		public.board.removeStart();
+	};
+
+	public.resetSelect = function(){
+		if(public.select != undefined){
+			$('.active').removeClass('active');
+			public.select = undefined;
+		}
 	};
 
 	public.showCheck = function(){

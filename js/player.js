@@ -24,14 +24,14 @@ function Player(id){
 	};
 
 	public.updateMoves = function(){
-		var hasEnemyCheck = false;
+		var isEnemyCheck = false;
 		for(var i = 0; i < public.pieces.length; i++){
 			public.pieces[i].setMoves();
 			if(public.pieces[i].canEatKing()){
-				hasEnemyCheck = true;
+				isEnemyCheck = true;
 			}
 		}
-		public.enemy.isCheck = hasEnemyCheck;
+		public.enemy.isCheck = isEnemyCheck;
 	};
 
 	public.getColor = function(){
@@ -39,37 +39,31 @@ function Player(id){
 	};
 
 	private.loadPawn = function(){
-		var row = (public.id == 0) ? 1 : 6;
 		for(var i = 0; i < 8; i++){
 			private.addPieceOnSquare(new Pawn(public), i);
 		}
 	};
 
 	private.loadTower = function(){
-		var row = (public.id == 0) ? 0 : 7;
 		private.addPieceOnSquare(new Tower(public), 0);
 		private.addPieceOnSquare(new Tower(public), 7);
 	};
 
 	private.loadKinght = function(){
-		var row = (public.id == 0) ? 0 : 7;
 		private.addPieceOnSquare(new Knight(public), 1);
 		private.addPieceOnSquare(new Knight(public), 6);
 	};
 
 	private.loadBishop = function(){
-		var row = (public.id == 0) ? 0 : 7;
 		private.addPieceOnSquare(new Bishop(public), 2);
 		private.addPieceOnSquare(new Bishop(public), 5);
 	};
 
 	private.loadQueen = function(){
-		var row = (public.id == 0) ? 0 : 7;
 		private.addPieceOnSquare(new Queen(public), 4);
 	};
 
 	private.loadKing = function(){
-		var row = (public.id == 0) ? 0 : 7;
 		private.addPieceOnSquare(new King(public), 3);
 	};
 

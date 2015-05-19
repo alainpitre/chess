@@ -34,6 +34,7 @@ function Square(x, y){
 	}
 
 	public.desactivate = function(){
+		console.log('desactivate');
 		public.node.className = public.className;
 	}
 
@@ -65,11 +66,6 @@ function Square(x, y){
 		return piece != undefined && piece.type == "king";
 	};
 
-	public.isPlayer = function(){
-		var piece = public.getPiece();
-		return piece != undefined && piece.player.id == Chess.playing.id;
-	};
-
 	public.getPiece = function(){
 		if(public.hasPiece())
 			return public.node.firstElementChild.object;
@@ -87,8 +83,9 @@ function Square(x, y){
 	private.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', public.className);
+		public.node.object = public;
 		public.node.addEventListener('click', function(){
-			event.clickSquare(Chess.board.getSquare(public.position));
+			event.clickSquare(public.node.object);
 		});
 	}
 
