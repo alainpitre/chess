@@ -34,7 +34,3 @@ event.selectPiece = function(piece){
 	Chess.select = piece;
 	Chess.select.showMoves();
 };
-
-event.moveBack = function(){
-
-};

@@ -3,7 +3,6 @@ function Board($container){
 	var public = {};
 	var private = {};
 
-	public.eat = undefined;
 	public.node = undefined;
 
 	private.square = [];
