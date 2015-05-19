@@ -32,7 +32,7 @@ event.moveTo = function(from, to){
 	event.moveFromTo(from, to);
 	Chess.showCheck();
 	if(Chess.playing.isCheck)
-		event.moveFromTo(from, to);
+		event.moveFromTo(to, from);
 	else
 		Chess.setNextPlayer();
 	Chess.resetSelect();
