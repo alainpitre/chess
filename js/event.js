@@ -7,28 +7,19 @@ event.clickSquare = function(square){
 		event.selectPiece(piece);
 
 	else if(Validation.isDestination(square))
-		event.move(square);
+		event.move(Chess.select.getSquare(), square);
 
-};
-
-event.move = function(square){
-	if(square.hasEnemy())
-		event.moveEat(Chess.select.getSquare(), square);
-	else
-		event.moveTo(Chess.select.getSquare(), square);
-};
-
-event.moveEat = function(from, to){
-	event.moveTo(from, to);
 };
 
 event.moveFromTo = function(from, to){
 	from.empty();
+	if(to.hasPiece())
+		Chess.playing.eat(to.getPiece());
 	to.setPiece(Chess.select);
 	Chess.updatePlayer();
 };
 
-event.moveTo = function(from, to){
+event.move = function(from, to){
 	event.moveFromTo(from, to);
 	Chess.showCheck();
 	if(Chess.playing.isCheck)

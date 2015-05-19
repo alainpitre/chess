@@ -23,6 +23,15 @@ function Player(id){
 		private.loadKing();
 	};
 
+	public.eat = function(piece){
+		var tempPieces = [];
+		for(var i = 0; i < public.enemy.pieces.length; i++){
+			if(public.enemy.pieces[i] != piece)
+				tempPieces.push(public.enemy.pieces[i]);
+		}
+		public.enemy.pieces = tempPieces
+	};
+
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
 		for(var i = 0; i < public.pieces.length; i++){
