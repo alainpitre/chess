@@ -23,10 +23,22 @@ event.move = function(from, to){
 	event.moveFromTo(from, to);
 	Chess.showCheck();
 	if(Chess.playing.isCheck)
-		event.moveFromTo(to, from);
+		event.moveBack();
 	else
-		Chess.setNextPlayer();
+		event.finishMove();
+
+	Chess.select.toString();
 	Chess.resetSelect();
+};
+
+event.moveBack = function(){
+	moveFromTo(to, from);
+	Chess.select.removeCount();
+};
+
+event.finishMove = function(){
+	Chess.setNextPlayer();
+	Chess.select.addCount();
 };
 
 event.selectPiece = function(piece){

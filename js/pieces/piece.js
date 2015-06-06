@@ -38,6 +38,22 @@ function Piece(type, player){
 		//Redefined in all childrens class
 	};
 
+	public.removeCount = function(){
+		public.moves.qts--;
+	};
+
+	public.addCount = function(){
+		public.moves.qts++;
+	};
+
+	public.getCount = function(){
+		return public.moves.qts;
+	};
+
+	public.isStarting = function(){
+		return public.getCount() == 0;
+	};
+
 	public.getStartingRow = function(){
 		if(public.type == "pawn")
 			return (public.player.id == 0) ? 1 : 6;
@@ -68,6 +84,10 @@ function Piece(type, player){
 		for(var key in squares){
 			squares[key].desactivate();
 		}
+	};
+
+	public.toString = function(){
+		console.log(public.type, public.getCount());
 	};
 
 	private.construct();

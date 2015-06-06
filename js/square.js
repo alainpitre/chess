@@ -61,6 +61,11 @@ function Square(x, y){
 		return piece != undefined && piece.player.id != Chess.playing.id;
 	};
 
+	public.hasPieceStarting = function(){
+		var piece = public.getPiece();
+		return piece != undefined && piece.isStarting();
+	}
+
 	public.hasKing = function(){
 		var piece = public.getPiece();
 		return piece != undefined && piece.type == "king";
