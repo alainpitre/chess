@@ -1,44 +1,46 @@
 var event = {};
 
 event.clickSquare = function(square){
-	var piece = square.getPiece();
+	if(square.isActive)
+		event.move(Chess.select.getSquare(), square);
+};
 
+event.clickPiece = function(piece){
+	var square = piece.getSquare();
 	if(Validation.isPlayerPiece(piece))
 		event.selectPiece(piece);
-
-	else if(Validation.isDestination(square))
-		event.move(Chess.select.getSquare(), square);
-
+	else if(square.isActive)
+		event.eat(piece);
 };
 
 event.moveFromTo = function(from, to){
 	from.empty();
-	if(to.hasPiece())
-		Chess.playing.eat(to.getPiece());
 	to.setPiece(Chess.select);
+	Chess.select.hideMoves();
 	Chess.updatePlayer();
 };
 
 event.move = function(from, to){
 	event.moveFromTo(from, to);
 	Chess.showCheck();
+
 	if(Chess.playing.isCheck)
-		event.moveBack();
+		event.moveFromTo(to, from);
 	else
-		event.finishMove();
-
-	Chess.select.toString();
-	Chess.resetSelect();
+		Chess.resetSelect();
 };
 
-event.moveBack = function(){
-	moveFromTo(to, from);
-	Chess.select.removeCount();
-};
+event.eat = function(piece){
+	var from = Chess.select.getSquare();
+	var to = piece.getSquare();
 
-event.finishMove = function(){
-	Chess.setNextPlayer();
-	Chess.select.addCount();
+	piece.node.remove();
+	event.moveFromTo(from, to);
+
+	if(Chess.playing.isCheck)
+		event.moveFromTo(to, from);
+	else
+		Chess.resetSelect();
 };
 
 event.selectPiece = function(piece){

@@ -19,7 +19,9 @@ function Piece(type, player){
 	public.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', 'piece');
-		public.node.object = public; //To keep reference
+		public.node.addEventListener('click', function(){
+			event.clickPiece(public);
+		});
 	};
 
 	public.setHtml = function(html){
@@ -54,13 +56,6 @@ function Piece(type, player){
 		return public.getCount() == 0;
 	};
 
-	public.getStartingRow = function(){
-		if(public.type == "pawn")
-			return (public.player.id == 0) ? 1 : 6;
-		else
-			return (public.player.id == 0) ? 0 : 7;
-	};
-
 	public.canEatKing = function(){
 		var squares = public.moves.getSquares();
 		for(var key in squares){
@@ -80,7 +75,6 @@ function Piece(type, player){
 
 	public.hideMoves = function(){
 		var squares = public.moves.getSquares();
-		console.log(squares);
 		for(var key in squares){
 			squares[key].desactivate();
 		}

@@ -7,3 +7,8 @@ Validation.isDestination = function(square){
 Validation.isPlayerPiece = function(piece){
 	return piece != undefined && piece.player.id == Chess.playing.id;
 }
+
+Validation.isEating = function(piece){
+	var square = Chess.board.getSquare(piece.position);
+	return square.isActive;
+}

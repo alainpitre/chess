@@ -4,7 +4,6 @@ function Board($container){
 	var private = {};
 
 	public.node = undefined;
-
 	private.square = [];
 
 	public.construct = function(){

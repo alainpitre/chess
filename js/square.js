@@ -6,6 +6,8 @@ function Square(x, y){
 	public.position = {};
 	public.className = "";
 	public.node = undefined;
+	public.isActive = false;
+	private.piece = undefined;
 
 	private.construct = function(){
 		private.setPosition(x, y);
@@ -18,27 +20,36 @@ function Square(x, y){
 		public.position.y = y;
 	};
 
-	public.hasPiece = function(){
-		return public.node.childNodes.length > 0;
-	};
-
-	public.setPiece = function(piece){
-		public.empty();
-		piece.position = public.position;
-		public.node.appendChild(piece.node);
+	public.addPiece = function(piece){
+		public.setPiece(piece);
+		Chess.board.node.appendChild(private.piece.node);
 	}
 
+	public.setPiece = function(piece){
+		private.piece = piece;
+		private.piece.position = public.position;
+		$(private.piece.node).animate(public.getPosition()); 
+	}
+
+	public.getPosition = function() {
+		return {left : public.node.offsetLeft, top  : public.node.offsetTop};
+	}
+
+	public.hasPiece = function(){
+		return private.piece != undefined;
+	};
+
 	public.empty = function(){
-		if(public.node.firstChild != undefined)
-			public.node.removeChild(public.node.firstChild);
+		private.piece = undefined;
 	}
 
 	public.desactivate = function(){
-		console.log('desactivate');
+		public.isActive = false;
 		public.node.className = public.className;
 	}
 
 	public.activate = function(){
+		public.isActive = true;
 		public.node.className += " active";
 	}
 
@@ -48,34 +59,23 @@ function Square(x, y){
 
 	public.isEnemy = function(player){
 		var piece = public.getPiece();
-		return piece != undefined && piece.player.id != player.id;
+		return public.hasPiece() && private.piece.player.id != player.id;
 	};
 
 	public.isEmptyOrEnemy = function(player){
-		var piece = public.getPiece();
-		return piece == undefined || piece.player.id != player.id;
-	};
-
-	public.hasEnemy = function(){
-		var piece = public.getPiece();
-		return piece != undefined && piece.player.id != Chess.playing.id;
+		return public.isEmpty() || private.piece.player.id != player.id;
 	};
 
 	public.hasPieceStarting = function(){
-		var piece = public.getPiece();
-		return piece != undefined && piece.isStarting();
+		return public.hasPiece() && private.piece.isStarting();
 	}
 
 	public.hasKing = function(){
-		var piece = public.getPiece();
-		return piece != undefined && piece.type == "king";
+		return public.hasPiece() && private.piece.type == "king";
 	};
 
 	public.getPiece = function(){
-		if(public.hasPiece())
-			return public.node.firstElementChild.object;
-		else
-			return undefined;
+		return private.piece;
 	};
 
 	private.setClassName = function(x, y){
@@ -88,9 +88,8 @@ function Square(x, y){
 	private.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', public.className);
-		public.node.object = public;
 		public.node.addEventListener('click', function(){
-			event.clickSquare(public.node.object);
+			event.clickSquare(public);
 		});
 	}
 

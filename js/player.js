@@ -30,6 +30,7 @@ function Player(id){
 				tempPieces.push(public.enemy.pieces[i]);
 		}
 		public.enemy.pieces = tempPieces
+		piece.remove();
 	};
 
 	public.updateMoves = function(){
@@ -77,10 +78,17 @@ function Player(id){
 	};
 
 	private.addPieceOnSquare = function(piece, x){
-		var y = piece.getStartingRow();
+		var y = private.getStartingRow(piece.type);
 		var square = Chess.board.getSquare({'x' : x, 'y' : y});
-		square.setPiece(piece);
+		square.addPiece(piece);
 		public.pieces.push(piece);
+	};
+
+	private.getStartingRow = function(type){
+		if(type == "pawn")
+			return (public.id == 0) ? 1 : 6;
+		else
+			return (public.id == 0) ? 0 : 7;
 	};
 
 	private.construct();

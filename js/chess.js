@@ -48,7 +48,8 @@ function Chess(){
 
 	public.resetSelect = function(){
 		if(public.select != undefined){
-			$('.active').removeClass('active');
+			public.setNextPlayer();
+			public.select.addCount();
 			public.select = undefined;
 		}
 	};
