@@ -15,28 +15,20 @@ function Player(id){
 	};
 
 	private.loadPieces = function(){
-		private.loadPawn();
-		private.loadTower();
-		private.loadKinght();
-		private.loadBishop();
+		//private.loadPawn();
+		//private.loadTower();
+		//private.loadKinght();
+		//private.loadBishop();
 		private.loadQueen();
 		private.loadKing();
-	};
-
-	public.eat = function(piece){
-		var tempPieces = [];
-		for(var i = 0; i < public.enemy.pieces.length; i++){
-			if(public.enemy.pieces[i] != piece)
-				tempPieces.push(public.enemy.pieces[i]);
-		}
-		public.enemy.pieces = tempPieces
-		piece.remove();
 	};
 
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
 		for(var i = 0; i < public.pieces.length; i++){
 			public.pieces[i].setMoves();
+			public.pieces[i].toString()
+			console.log(public.getColor(), public.pieces[i].canEatKing());
 			if(public.pieces[i].canEatKing()){
 				isEnemyCheck = true;
 			}

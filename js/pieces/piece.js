@@ -20,7 +20,7 @@ function Piece(type, player){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', 'piece');
 		public.node.addEventListener('click', function(){
-			event.clickPiece(public);
+			event.clickSquare(public.getSquare());
 		});
 	};
 
@@ -30,6 +30,14 @@ function Piece(type, player){
 
 	public.getSquare = function(){
 		return Chess.board.getSquare(public.position);
+	};
+
+	public.remove = function(){
+		public.node.remove();
+	};
+
+	public.animate = function(destination){
+		$(public.node).animate(destination); 
 	};
 
 	public.isValidMove = function(square){
@@ -59,8 +67,7 @@ function Piece(type, player){
 	public.canEatKing = function(){
 		var squares = public.moves.getSquares();
 		for(var key in squares){
-			var piece = squares[key].getPiece();
-			if(squares[key].isEnemy(public.player) && squares[key].hasKing())
+			if(squares[key].isEnemy() && squares[key].hasKing())
 				return true;
 		}
 		return false;

@@ -49,6 +49,7 @@ function Chess(){
 	public.resetSelect = function(){
 		if(public.select != undefined){
 			public.setNextPlayer();
+			public.select.hideMoves();
 			public.select.addCount();
 			public.select = undefined;
 		}

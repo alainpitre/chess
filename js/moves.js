@@ -86,11 +86,11 @@ function Moves(piece){
 		if(private.isPossible(next) == false)
 			return true;
 
-		if(next.isEnemy(player) && private.isPawn() && private.isFront(next)){
+		if(next.isEnemy() && private.isPawn() && private.isFront(next)){
 			return true;
 		}
 
-		if(next.isEnemy(player) && private.isPawn() && private.isDiagonal(next)){
+		if(next.isEnemy() && private.isPawn() && private.isDiagonal(next)){
 			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
@@ -100,7 +100,7 @@ function Moves(piece){
 			return false;
 		}
 
-		if(next.isEnemy(player)){
+		if(next.isEnemy()){
 			private.squares[position.x+","+position.y] = next;
 			return true;
 		}
@@ -114,7 +114,7 @@ function Moves(piece){
 
 	private.isPossible = function(square){
 		if(square != undefined)
-			return square.isEmptyOrEnemy(private.piece.player);
+			return square.isPlayer() == false;
 		else
 			return false;
 	};

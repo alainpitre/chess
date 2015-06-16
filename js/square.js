@@ -22,13 +22,13 @@ function Square(x, y){
 
 	public.addPiece = function(piece){
 		public.setPiece(piece);
+		piece.animate(public.getPosition());
 		Chess.board.node.appendChild(private.piece.node);
 	}
 
 	public.setPiece = function(piece){
 		private.piece = piece;
 		private.piece.position = public.position;
-		$(private.piece.node).animate(public.getPosition()); 
 	}
 
 	public.getPosition = function() {
@@ -57,13 +57,12 @@ function Square(x, y){
 		return public.hasPiece() == false;
 	};
 
-	public.isEnemy = function(player){
-		var piece = public.getPiece();
-		return public.hasPiece() && private.piece.player.id != player.id;
+	public.isPlayer = function(){
+		return public.hasPiece() && private.piece.player.id == Chess.playing.id;
 	};
 
-	public.isEmptyOrEnemy = function(player){
-		return public.isEmpty() || private.piece.player.id != player.id;
+	public.isEnemy = function(){
+		return public.hasPiece() && private.piece.player.id != Chess.playing.id;
 	};
 
 	public.hasPieceStarting = function(){
