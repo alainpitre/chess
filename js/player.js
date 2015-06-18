@@ -27,7 +27,6 @@ function Player(id){
 		var isEnemyCheck = false;
 		for(var i = 0; i < public.pieces.length; i++){
 			public.pieces[i].setMoves();
-			public.pieces[i].toString()
 			if(public.pieces[i].canEatKing()){
 				isEnemyCheck = true;
 			}
