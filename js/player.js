@@ -28,7 +28,6 @@ function Player(id){
 		for(var i = 0; i < public.pieces.length; i++){
 			public.pieces[i].setMoves();
 			public.pieces[i].toString()
-			console.log(public.getColor(), public.pieces[i].canEatKing());
 			if(public.pieces[i].canEatKing()){
 				isEnemyCheck = true;
 			}
