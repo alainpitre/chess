@@ -24,16 +24,18 @@ function Square(x, y){
 		public.setPiece(piece);
 		piece.animate(public.getPosition());
 		Chess.board.node.appendChild(private.piece.node);
-	}
+	};
 
 	public.setPiece = function(piece){
+		if(private.piece != undefined)
+			private.piece.remove();
 		private.piece = piece;
 		private.piece.position = public.position;
-	}
+	};
 
 	public.getPosition = function() {
 		return {left : public.node.offsetLeft, top  : public.node.offsetTop};
-	}
+	};
 
 	public.hasPiece = function(){
 		return private.piece != undefined;
@@ -41,17 +43,17 @@ function Square(x, y){
 
 	public.empty = function(){
 		private.piece = undefined;
-	}
+	};
 
 	public.desactivate = function(){
 		public.isActive = false;
 		public.node.className = public.className;
-	}
+	};
 
 	public.activate = function(){
 		public.isActive = true;
 		public.node.className += " active";
-	}
+	};
 
 	public.isEmpty = function(){
 		return public.hasPiece() == false;
@@ -67,7 +69,7 @@ function Square(x, y){
 
 	public.hasPieceStarting = function(){
 		return public.hasPiece() && private.piece.isStarting();
-	}
+	};
 
 	public.hasKing = function(){
 		return public.hasPiece() && private.piece.type == "king";
@@ -90,7 +92,7 @@ function Square(x, y){
 		public.node.addEventListener('click', function(){
 			event.clickSquare(public);
 		});
-	}
+	};
 
 	private.construct();
 	return public;
