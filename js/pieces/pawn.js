@@ -17,9 +17,10 @@ function Pawn(player){
 	};
 
 	public.isInitialPosition = function(){
-		if(public.player.id == 1 && public.position.y == 6)
+		var position = public.getPosition();
+		if(public.player.id == 1 && position.y == 6)
 			return true;
-		if(public.player.id == 0 && public.position.y == 1)
+		if(public.player.id == 0 && position.y == 1)
 			return true;
 		return false;
 	};

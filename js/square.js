@@ -16,13 +16,12 @@ function Square(x, y){
 	};
 
 	private.setPosition = function(x, y){
-		public.position.x = x;
-		public.position.y = y;
+		public.position = {'x' : x, 'y' : y};
 	};
 
 	public.addPiece = function(piece){
 		public.setPiece(piece);
-		piece.animate(public.getPosition());
+		piece.animate(public.getOffset());
 		Chess.board.node.appendChild(private.piece.node);
 	};
 
@@ -30,10 +29,10 @@ function Square(x, y){
 		if(private.piece != undefined)
 			private.piece.remove();
 		private.piece = piece;
-		private.piece.position = public.position;
+		private.piece.square = public;
 	};
 
-	public.getPosition = function() {
+	public.getOffset = function() {
 		return {left : public.node.offsetLeft, top  : public.node.offsetTop};
 	};
 

@@ -4,10 +4,10 @@ function Piece(type, player){
 	var private = {};
 
 	public.type = "";
-	public.position = {};
 	public.moves = undefined;
 	public.node = undefined;
-	public.player = undefined
+	public.player = undefined;
+	public.square = undefined;
 
 	private.construct = function(){
 		public.type = type;
@@ -20,7 +20,7 @@ function Piece(type, player){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', 'piece');
 		public.node.addEventListener('click', function(){
-			event.clickSquare(public.getSquare());
+			event.clickSquare(public.square);
 		});
 	};
 
@@ -28,8 +28,8 @@ function Piece(type, player){
 		public.node.innerHTML = html[player.id];
 	};
 
-	public.getSquare = function(){
-		return Chess.board.getSquare(public.position);
+	public.getPosition = function(){
+		return {'x' : public.square.position.x, 'y' : public.square.position.y};
 	};
 
 	public.remove = function(){

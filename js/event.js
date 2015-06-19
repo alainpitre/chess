@@ -4,7 +4,7 @@ event.clickSquare = function(square){
 	var piece = square.getPiece();
 
 	if(square.isActive)
-		event.move(Chess.select.getSquare(), square);
+		event.move(Chess.select.square, square);
 
 	else if(square.hasSamePlayer(Chess.playing))
 		event.selectPiece(piece);
@@ -29,18 +29,6 @@ event.cancel = function(from, to){
 	return false;
 };
 
-event.eat = function(piece){
-	Chess.select.hideMoves();
-
-	var from = Chess.select.getSquare();
-	var to = piece.getSquare();
-
-	if(event.tryMove(from, to)){
-		piece.remove();
-		event.goTo(to)
-	}
-};
-
 event.move = function(from, to){
 	Chess.select.hideMoves();
 
@@ -50,8 +38,8 @@ event.move = function(from, to){
 };
 
 event.goTo = function(square){
-	var position = square.getPosition();
-	Chess.select.animate(position);
+	var offset = square.getOffset();
+	Chess.select.animate(offset);
 	Chess.resetSelect();
 };
 

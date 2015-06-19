@@ -19,10 +19,6 @@ function Moves(piece){
 		private.squares = {};
 	};
 
-	public.getPosition = function(){
-		return {x : private.piece.position.x, y : private.piece.position.y};
-	};
-
 	public.getSquares = function(){
 		return private.squares;
 	};
@@ -67,7 +63,8 @@ function Moves(piece){
 	};
 
 	private.isFront = function(square){
-		return private.piece.position.x == square.position.x;
+		var position = private.piece.square.position;
+		return position.x == square.position.x;
 	};
 
 	private.isDiagonal = function(square){
@@ -122,7 +119,7 @@ function Moves(piece){
 	};
 
 	private.add = function(x, y, isSingle){
-		var position = public.getPosition();
+		var position = private.piece.getPosition();
 		var next = true;
 
 		while (next == true) {
