@@ -40,10 +40,6 @@ function Piece(type, player){
 		$(public.node).animate(destination); 
 	};
 
-	public.isValidMove = function(square){
-		return public.moves.isValid(square.position);
-	};
-
 	public.setMoves = function(){
 		//Redefined in all childrens class
 	};

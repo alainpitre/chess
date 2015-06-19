@@ -58,10 +58,6 @@ function Moves(piece){
 		private.add(0, -2, true);
 	};
 
-	public.isValid = function(position){
-		return private.squares[position.x+","+position.y] != undefined;
-	};
-
 	private.isFront = function(square){
 		var position = private.piece.square.position;
 		return position.x == square.position.x;
