@@ -39,7 +39,6 @@ function Chess(){
 		public.playing = (id == 1) ? public.black : public.white;
 	};
 
-
 	public.setPlayer = function(id){
 		public.setNextPlayer(id);
 		public.updatePlayer();
