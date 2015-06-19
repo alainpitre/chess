@@ -85,31 +85,31 @@ function Moves(piece){
 		var hasEnemyPlayer = square != undefined && square.hasEnemyPlayer(private.piece.player);
 
 		if(isNotValidMove){
-			return true;
+			return false;
 		}
 
 		if(hasEnemyPlayer && private.isPawn() && private.isFront(square)){
-			return true;
+			return false;
 		}
 
 		if(hasEnemyPlayer && private.isPawn() && private.isDiagonal(square)){
 			private.squares[position.x+","+position.y] = square;
-			return true;
+			return false;
 		}
 
 		if(square.isEmpty() && private.isPawn() && private.isFront(square)){
 			private.squares[position.x+","+position.y] = square;
-			return false;
+			return true;
 		}
 
 		if(hasEnemyPlayer){
 			private.squares[position.x+","+position.y] = square;
-			return true;
+			return false;
 		}
 
 		if(square.isEmpty() && private.isPawn() == false){
 			private.squares[position.x+","+position.y] = square;
-			return false;
+			return true;
 		}
 
 	};
@@ -123,17 +123,17 @@ function Moves(piece){
 
 	private.add = function(x, y, isSingle){
 		var position = public.getPosition();
-		var stop = false;
+		var next = true;
 
-		while (stop == false) {
+		while (next == true) {
 
 	    	position.x += x;
 	    	position.y += y * private.direction;
 
-	    		stop = private.addSquare(position);
+	    	next = private.addSquare(position);
 
 	    	if(isSingle)
-	    		stop = true;
+	    		next = false;
 
 		}
 

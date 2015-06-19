@@ -15,10 +15,10 @@ function Player(id){
 	};
 
 	private.loadPieces = function(){
-		//private.loadPawn();
-		//private.loadTower();
-		//private.loadKinght();
-		//private.loadBishop();
+		private.loadPawn();
+		private.loadTower();
+		private.loadKinght();
+		private.loadBishop();
 		private.loadQueen();
 		private.loadKing();
 	};
