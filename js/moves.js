@@ -80,43 +80,45 @@ function Moves(piece){
 
 	private.addSquare = function(position){
 
-		var next = Chess.board.getSquare(position);
-		var player = private.piece.player;
+		var square = Chess.board.getSquare(position);
+		var isNotValidMove = square == undefined || square.hasSamePlayer(private.piece.player);
+		var hasEnemyPlayer = square != undefined && square.hasEnemyPlayer(private.piece.player);
 
-		if(private.isPossible(next) == false)
-			return true;
-
-		if(next.isEnemy() && private.isPawn() && private.isFront(next)){
+		if(isNotValidMove){
 			return true;
 		}
 
-		if(next.isEnemy() && private.isPawn() && private.isDiagonal(next)){
-			private.squares[position.x+","+position.y] = next;
+		if(hasEnemyPlayer && private.isPawn() && private.isFront(square)){
 			return true;
 		}
 
-		if(next.isEmpty() && private.isPawn() && private.isFront(next)){
-			private.squares[position.x+","+position.y] = next;
+		if(hasEnemyPlayer && private.isPawn() && private.isDiagonal(square)){
+			private.squares[position.x+","+position.y] = square;
+			return true;
+		}
+
+		if(square.isEmpty() && private.isPawn() && private.isFront(square)){
+			private.squares[position.x+","+position.y] = square;
 			return false;
 		}
 
-		if(next.isEnemy()){
-			private.squares[position.x+","+position.y] = next;
+		if(hasEnemyPlayer){
+			private.squares[position.x+","+position.y] = square;
 			return true;
 		}
 
-		if(next.isEmpty() && private.isPawn() == false){
-			private.squares[position.x+","+position.y] = next;
+		if(square.isEmpty() && private.isPawn() == false){
+			private.squares[position.x+","+position.y] = square;
 			return false;
 		}
 
 	};
 
-	private.isPossible = function(square){
+	private.isNotValidMove = function(square){
 		if(square != undefined)
-			return square.isPlayer() == false;
+			return square.hasSamePlayer(private.piece.player) == true;
 		else
-			return false;
+			return true;
 	};
 
 	private.add = function(x, y, isSingle){

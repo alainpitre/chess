@@ -57,12 +57,12 @@ function Square(x, y){
 		return public.hasPiece() == false;
 	};
 
-	public.isPlayer = function(){
-		return public.hasPiece() && private.piece.player.id == Chess.playing.id;
+	public.hasSamePlayer = function(player){
+		return public.hasPiece() && private.piece.player.id == player.id;
 	};
 
-	public.isEnemy = function(){
-		return public.hasPiece() && private.piece.player.id != Chess.playing.id;
+	public.hasEnemyPlayer = function(player){
+		return public.hasPiece() && private.piece.player.id != player.id
 	};
 
 	public.hasPieceStarting = function(){

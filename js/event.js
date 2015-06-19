@@ -6,7 +6,7 @@ event.clickSquare = function(square){
 	if(square.isActive)
 		event.move(Chess.select.getSquare(), square);
 
-	else if(square.isPlayer())
+	else if(square.hasSamePlayer(Chess.playing))
 		event.selectPiece(piece);
 };
 

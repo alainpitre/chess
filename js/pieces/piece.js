@@ -67,7 +67,7 @@ function Piece(type, player){
 	public.canEatKing = function(){
 		var squares = public.moves.getSquares();
 		for(var key in squares){
-			if(squares[key].isEnemy() && squares[key].hasKing())
+			if(squares[key].hasEnemyPlayer(public.player) && squares[key].hasKing())
 				return true;
 		}
 		return false;
