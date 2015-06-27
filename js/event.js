@@ -13,34 +13,32 @@ event.clickSquare = function(square){
 event.tryMove = function(from, to){
 	from.empty();
 	to.setPiece(Chess.select);
+	Chess.select.addCount();
 	Chess.updatePlayer();
 
-	if(Chess.playing.isCheck)
-		return event.cancel(to, from);
-
-	return true;
+	if(Chess.playing.isCheck){
+		event.cancel(to, from);
+		return false;
+	}else{
+		return true;
+	}
 };
 
 event.cancel = function(from, to){
 	Chess.showCheck();
+	Chess.select.removeCount();
 	from.empty();
 	to.setPiece(Chess.select);
 	Chess.updatePlayer();
-	return false;
 };
 
 event.move = function(from, to){
 	Chess.select.hideMoves();
 
 	if(event.tryMove(from, to)){
-		event.goTo(to)
+		Chess.select.animate();
+		Chess.resetSelect();
 	}
-};
-
-event.goTo = function(square){
-	var offset = square.getOffset();
-	Chess.select.animate(offset);
-	Chess.resetSelect();
 };
 
 event.selectPiece = function(piece){

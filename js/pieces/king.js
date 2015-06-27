@@ -28,6 +28,9 @@ function King(player){
 
 	public.setMoves = function(){
 		public.moves.reset();
+
+		console.log(public.moves.qts + ' moves for King player ' + public.player.getColor());
+
 		public.moves.setDiagonal(true);
 		public.moves.setLine(true);
 	};

@@ -4,7 +4,6 @@ function Moves(piece){
 	var private = {};
 
 	public.qts = 0;
-
 	private.squares = {};
 	private.direction = 0;
 	private.piece = undefined;

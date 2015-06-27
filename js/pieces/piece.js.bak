@@ -39,7 +39,58 @@ function Piece(type, player){
 	};
 
 	public.animate = function(square){
+		//private.slide(public.square.getOffset());
 		$(public.node).animate(public.square.getOffset());
+	};
+
+	private.slide = function(offset){
+
+		//var left = public.node.offsetLeft;
+		//var top = public.node.offsetTop;
+
+		var speed = 5;
+
+		if(offset.left == offset.left % speed){
+			var left =  offset.left;
+		}else{
+			var testLeft = public.node.offsetLeft - offset.left
+			var left = public.node.offsetLeft - ((testLeft / Math.abs(testLeft)) * speed);
+		}
+
+		if(offset.top == offset.top % speed){
+			var top = offset.top;
+		}else{
+			var testTop = public.node.offsetTop - offset.top
+			var top = public.node.offsetTop - ((testTop / Math.abs(testTop)) * speed);
+		}
+
+		/*
+		var speed = 5;
+
+		if(offset.left == offset.left % speed) left = offset.left;
+
+		if(offset.top == offset.top % speed) top = offset.top;
+
+		if(left > offset.left) left -= speed;
+		
+		if(left < offset.left) left += speed;
+
+		if(top > offset.top) top -= speed;
+			
+		if(top < offset.top) top += speed;
+
+		*/
+
+		if(left != public.node.offsetLeft || top != public.node.offsetTop){
+
+			public.node.setAttribute('style', 'left:'+left+'px; top:'+top+'px');
+
+			setTimeout(function(){ 
+				private.slide(offset);
+			}, 1);
+
+		}
+
 	};
 
 	public.setMoves = function(){

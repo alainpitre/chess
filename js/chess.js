@@ -49,7 +49,6 @@ function Chess(){
 		if(public.select != undefined){
 			public.setNextPlayer();
 			public.select.hideMoves();
-			public.select.addCount();
 			public.select = undefined;
 		}
 	};

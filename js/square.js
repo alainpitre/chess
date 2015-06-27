@@ -21,13 +21,14 @@ function Square(x, y){
 
 	public.addPiece = function(piece){
 		public.setPiece(piece);
-		piece.animate(public.getOffset());
+		piece.animate();
 		Chess.board.node.appendChild(private.piece.node);
 	};
 
 	public.setPiece = function(piece){
-		if(private.piece != undefined)
+		if(private.piece != undefined){
 			private.piece.remove();
+		}
 		private.piece = piece;
 		private.piece.square = public;
 	};

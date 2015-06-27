@@ -15,11 +15,11 @@ function Player(id){
 	};
 
 	private.loadPieces = function(){
-		private.loadPawn();
+		//private.loadPawn();
 		private.loadTower();
-		private.loadKinght();
-		private.loadBishop();
-		private.loadQueen();
+		//private.loadKinght();
+		//private.loadBishop();
+		//private.loadQueen();
 		private.loadKing();
 	};
 
@@ -40,38 +40,42 @@ function Player(id){
 
 	private.loadPawn = function(){
 		for(var i = 0; i < 8; i++){
-			private.addPieceOnSquare(new Pawn(public), i);
+			private.addPiece(new Pawn(public), i);
 		}
 	};
 
 	private.loadTower = function(){
-		private.addPieceOnSquare(new Tower(public), 0);
-		private.addPieceOnSquare(new Tower(public), 7);
+		private.addPiece(new Tower(public), 0);
+		private.addPiece(new Tower(public), 7);
 	};
 
 	private.loadKinght = function(){
-		private.addPieceOnSquare(new Knight(public), 1);
-		private.addPieceOnSquare(new Knight(public), 6);
+		private.addPiece(new Knight(public), 1);
+		private.addPiece(new Knight(public), 6);
 	};
 
 	private.loadBishop = function(){
-		private.addPieceOnSquare(new Bishop(public), 2);
-		private.addPieceOnSquare(new Bishop(public), 5);
+		private.addPiece(new Bishop(public), 2);
+		private.addPiece(new Bishop(public), 5);
 	};
 
 	private.loadQueen = function(){
-		private.addPieceOnSquare(new Queen(public), 4);
+		private.addPiece(new Queen(public), 4);
 	};
 
 	private.loadKing = function(){
-		private.addPieceOnSquare(new King(public), 3);
+		private.addPiece(new King(public), 3);
 	};
 
-	private.addPieceOnSquare = function(piece, x){
+	private.addPiece = function(piece, x){
 		var y = private.getStartingRow(piece.type);
 		var square = Chess.board.getSquare({'x' : x, 'y' : y});
 		square.addPiece(piece);
 		public.pieces.push(piece);
+	};
+
+	public.removePiece = function(piece){
+		public.pieces.splice(public.pieces.indexOf(piece), 1);
 	};
 
 	private.getStartingRow = function(type){
