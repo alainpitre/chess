@@ -11,9 +11,14 @@ event.clickSquare = function(square){
 };
 
 event.tryMove = function(from, to){
+
 	from.empty();
 	to.setPiece(Chess.select);
 	Chess.select.addCount();
+
+	if(to.isCastling)
+		event.tryCastling();
+
 	Chess.updatePlayer();
 
 	if(Chess.playing.isCheck){
@@ -22,6 +27,11 @@ event.tryMove = function(from, to){
 	}else{
 		return true;
 	}
+
+};
+
+event.tryCastling = function(to){
+
 };
 
 event.cancel = function(from, to){

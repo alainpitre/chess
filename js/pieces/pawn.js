@@ -7,16 +7,38 @@ function Pawn(player){
 		public.setHtml(['&#9817;', '&#9823;']);
 	};
 
-	public.setMoves = function(){
-		public.moves.reset();
+	public.addMoves = function(square){
+		var piecePosition = public.getPosition();
 
-		if(public.isInitialPosition())
-			public.moves.setDouble();
-		
-		public.moves.setSingle();
+		if(public.isNotValidMove(square)){
+			return false
+		}
+
+		if(square.hasEnemyPlayer(public.player)){
+			if(piecePosition.x != square.position.x)
+				public.moves.push(square);
+			return false;
+		}
+
+		if(square.isEmpty() && piecePosition.x == square.position.x){
+			public.moves.push(square);
+			return true;
+		}
+
 	};
 
-	public.isInitialPosition = function(){
+	public.setMoves = function(){
+		public.resetMoves();
+
+		if(private.isInitialPosition())
+			public.add(0, -2, true);
+		
+		public.add(0, -1, true);
+		public.add(1, -1, true);
+		public.add(-1, -1, true);
+	};
+
+	private.isInitialPosition = function(){
 		var position = public.getPosition();
 		if(public.player.id == 1 && position.y == 6)
 			return true;

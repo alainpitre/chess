@@ -8,8 +8,12 @@ function Tower(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.reset();
-		public.moves.setLine(false);
+		public.resetMoves();
+		
+		public.add(0, 1, false);
+		public.add(0, -1, false);
+		public.add(1, 0, false);
+		public.add(-1, 0, false);
 	}
 
 	private.construct();

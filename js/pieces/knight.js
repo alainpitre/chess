@@ -8,8 +8,16 @@ function Knight(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.reset();
-		public.moves.setL();
+		public.resetMoves();
+
+		public.add(-2, 1, true);
+		public.add(-1, 2, true);
+		public.add(2, 1, true);
+		public.add(1, 2, true);
+		public.add(-2, -1, true);
+		public.add(-1, -2, true);
+		public.add(2, -1, true);
+		public.add(1, -2, true);
 	};
 
 	private.construct();

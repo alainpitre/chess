@@ -27,12 +27,16 @@ function King(player){
 	};
 
 	public.setMoves = function(){
-		public.moves.reset();
+		public.resetMoves();
 
-		console.log(public.moves.qts + ' moves for King player ' + public.player.getColor());
-
-		public.moves.setDiagonal(true);
-		public.moves.setLine(true);
+		public.add(0, 1, true);
+		public.add(1, 1, true);
+		public.add(1, 0, true);
+		public.add(1, -1, true);
+		public.add(0, -1, true);
+		public.add(-1, -1, true);
+		public.add(-1, 0, true);
+		public.add(-1, 1, true);
 	};
 
 	private.construct();

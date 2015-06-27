@@ -7,6 +7,7 @@ function Square(x, y){
 	public.className = "";
 	public.node = undefined;
 	public.isActive = false;
+	public.isCastling = false;
 	private.piece = undefined;
 
 	private.construct = function(){
