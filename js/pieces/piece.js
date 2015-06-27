@@ -16,14 +16,6 @@ function Piece(type, player){
 		public.setNode();
 	};
 
-	public.setNode = function(){
-		public.node = document.createElement("div");
-		public.node.setAttribute('class', 'piece');
-		public.node.addEventListener('click', function(){
-			event.clickSquare(public.square);
-		});
-	};
-
 	public.setHtml = function(html){
 		public.node.innerHTML = html[player.id];
 	};
@@ -36,21 +28,11 @@ function Piece(type, player){
 		return public.type == type;
 	};
 
-	public.remove = function(){
-		public.player.removePiece(public);
-		public.square = undefined;
-		public.node.remove();
-	};
-
 	public.animate = function(square){
 		$(public.node).animate(public.square.getOffset());
 	};
 
 	public.setMoves = function(){
-		//Redefined in all childrens class
-	};
-
-	public.addMoves = function(){
 		//Redefined in all childrens class
 	};
 
@@ -70,14 +52,6 @@ function Piece(type, player){
 		return public.getCount() == 0;
 	};
 
-	public.canEatKing = function(){
-		for(var i = 0; i < public.moves.length; i++){
-			if(public.moves[i].hasEnemyPlayer(public.player) && public.moves[i].hasKing())
-				return true;
-		}
-		return false;
-	};
-
 	public.showMoves = function(){
 		for(var i = 0; i < public.moves.length; i++)
 			public.moves[i].activate();
@@ -95,6 +69,28 @@ function Piece(type, player){
 	public.resetMoves = function(){
 		public.player.enemy.isCheck = false;
 		public.moves = [];
+	};
+
+	public.canEatKing = function(){
+		for(var i = 0; i < public.moves.length; i++){
+			if(public.moves[i].hasEnemyPlayer(public.player) && public.moves[i].hasKing())
+				return true;
+		}
+		return false;
+	};
+
+	public.setNode = function(){
+		public.node = document.createElement("div");
+		public.node.setAttribute('class', 'piece');
+		public.node.addEventListener('click', function(){
+			event.clickSquare(public.square);
+		});
+	};
+
+	public.remove = function(){
+		public.player.removePiece(public);
+		public.square = undefined;
+		public.node.remove();
 	};
 
 	public.addMoves = function(square){
