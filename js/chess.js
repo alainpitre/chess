@@ -4,6 +4,7 @@ function Chess(){
 	var private = {};
 
 	public.board = undefined;
+	public.moves = undefined;
 	public.select = undefined;
 	public.playing = undefined;
 	public.white = undefined;
@@ -15,7 +16,14 @@ function Chess(){
 
 	private.documentReady = function(){
 		public.board = new Board();
+		public.moves = new Moves();
 		private.loadPlayer();
+
+		window.addEventListener("keydown", private.undo, false);
+	};
+
+	private.undo = function(){
+		Chess.moves.undo();
 	};
 
 	private.loadPlayer = function(){
@@ -23,6 +31,11 @@ function Chess(){
 		public.black = new Player(1);
 		public.white.enemy = public.black;
 		public.black.enemy = public.white;
+	};
+
+	public.getPiece = function(playerId, pieceId){
+		var player = (playerId == 1) ? public.black : public.white;
+		return player.pieces[pieceId];
 	};
 
 	public.getNextPlayerId = function(){

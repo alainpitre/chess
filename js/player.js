@@ -5,9 +5,11 @@ function Player(id){
 
 	public.id = 0;
 	public.color = ['WHITE', 'BLACK'];
-	public.pieces = [];
 	public.isCheck = false;
 	public.enemy = undefined;
+
+	public.offboard = {};
+	public.pieces = {};
 
 	private.construct = function(){
 		public.id = id;
@@ -15,20 +17,23 @@ function Player(id){
 	};
 
 	private.loadPieces = function(){
-		private.loadPawn();
+		//private.loadPawn();
 		private.loadTower();
-		private.loadKinght();
-		private.loadBishop();
-		private.loadQueen();
+		//private.loadKinght();
+		//private.loadBishop();
+		//private.loadQueen();
 		private.loadKing();
 	};
 
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
-		for(var i = 0; i < public.pieces.length; i++){
-			public.pieces[i].setMoves();
-			if(public.pieces[i].canEatKing()){
-				isEnemyCheck = true;
+		for(var key in public.pieces){
+			var piece = public.pieces[key];
+			if(piece.isEat == false){
+				piece.setMoves();
+				if(piece.canEatKing()){
+					isEnemyCheck = true;
+				}
 			}
 		}
 		public.enemy.isCheck = isEnemyCheck;
@@ -39,9 +44,14 @@ function Player(id){
 	};
 
 	private.loadPawn = function(){
-		for(var i = 0; i < 8; i++){
-			private.addPiece(new Pawn(public), i);
-		}
+		private.addPiece(new Pawn(public), 0);
+		private.addPiece(new Pawn(public), 1);
+		private.addPiece(new Pawn(public), 2);
+		private.addPiece(new Pawn(public), 3);
+		private.addPiece(new Pawn(public), 4);
+		private.addPiece(new Pawn(public), 5);
+		private.addPiece(new Pawn(public), 6);
+		private.addPiece(new Pawn(public), 7);
 	};
 
 	private.loadTower = function(){
@@ -68,21 +78,24 @@ function Player(id){
 	};
 
 	private.addPiece = function(piece, x){
-		var y = private.getStartingRow(piece.type);
-		var square = Chess.board.getSquare({'x' : x, 'y' : y});
+		var position = {'x' : x, 'y' : piece.getStartingRow()};
+		var square = Chess.board.getSquare(position);
+
+		piece.setId(private.getOnBoardLength());
 		square.addPiece(piece);
-		public.pieces.push(piece);
+
+		if(piece.is('tower'))
+			piece.setCastling(position);
+
+		public.pieces[piece.id] = piece;
 	};
 
-	public.removePiece = function(piece){
-		public.pieces.splice(public.pieces.indexOf(piece), 1);
+	private.getOnBoardLength = function(){
+		return Object.keys(public.pieces).length;
 	};
 
-	private.getStartingRow = function(type){
-		if(type == "pawn")
-			return (public.id == 0) ? 1 : 6;
-		else
-			return (public.id == 0) ? 0 : 7;
+	public.unsetPiece = function(id){
+		public.pieces[id].isEat = true;
 	};
 
 	private.construct();

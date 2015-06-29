@@ -7,7 +7,7 @@ function Square(x, y){
 	public.className = "";
 	public.node = undefined;
 	public.isActive = false;
-	public.isCastling = false;
+	public.castling = false;
 	private.piece = undefined;
 
 	private.construct = function(){
@@ -23,13 +23,14 @@ function Square(x, y){
 	public.addPiece = function(piece){
 		public.setPiece(piece);
 		piece.animate();
-		Chess.board.node.appendChild(private.piece.node);
 	};
 
 	public.setPiece = function(piece){
 		if(private.piece != undefined){
 			private.piece.remove();
 		}
+
+		Chess.board.node.appendChild(piece.node);
 		private.piece = piece;
 		private.piece.square = public;
 	};

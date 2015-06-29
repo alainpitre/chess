@@ -9,6 +9,8 @@ function Piece(type, player){
 	public.player = undefined;
 	public.square = undefined;
 	public.count = 0;
+	public.id = 0;
+	public.isEat = false;
 
 	private.construct = function(){
 		public.type = type;
@@ -22,6 +24,10 @@ function Piece(type, player){
 
 	public.getPosition = function(){
 		return {'x' : public.square.position.x, 'y' : public.square.position.y};
+	};
+
+	public.setId = function(nbPieces){
+		public.id = (nbPieces > 9) ? nbPieces : "0" + nbPieces;
 	};
 
 	public.is = function(type){
@@ -73,7 +79,8 @@ function Piece(type, player){
 
 	public.canEatKing = function(){
 		for(var i = 0; i < public.moves.length; i++){
-			if(public.moves[i].hasEnemyPlayer(public.player) && public.moves[i].hasKing())
+			var square = public.moves[i];
+			if(square.hasEnemyPlayer(public.player) && square.hasKing())
 				return true;
 		}
 		return false;
@@ -88,9 +95,16 @@ function Piece(type, player){
 	};
 
 	public.remove = function(){
-		public.player.removePiece(public);
+		public.player.unsetPiece(public.id);
 		public.square = undefined;
 		public.node.remove();
+	};
+
+	public.getStartingRow = function(){
+		if(public.type == "pawn")
+			return (public.player.id == 0) ? 1 : 6;
+		else
+			return (public.player.id == 0) ? 0 : 7;
 	};
 
 	public.addMoves = function(square){
