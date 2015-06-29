@@ -19,6 +19,7 @@ function Moves(){
 		from.empty();
 		to.setPiece(piece);
 		piece.animate();
+		
 		piece.addCount();
 
 		private.history.push(status);
@@ -69,6 +70,7 @@ function Moves(){
 		to.empty();
 		from.setPiece(piece);
 		piece.animate();
+
 		piece.removeCount();
 
 		if(move.eat != undefined)

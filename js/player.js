@@ -17,25 +17,32 @@ function Player(id){
 	};
 
 	private.loadPieces = function(){
-		//private.loadPawn();
+		private.loadPawn();
 		private.loadTower();
-		//private.loadKinght();
-		//private.loadBishop();
-		//private.loadQueen();
+		private.loadKinght();
+		private.loadBishop();
+		private.loadQueen();
 		private.loadKing();
 	};
 
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
 		for(var key in public.pieces){
+
 			var piece = public.pieces[key];
+
 			if(piece.isEat == false){
+
 				piece.setMoves();
+
 				if(piece.canEatKing()){
 					isEnemyCheck = true;
 				}
+
 			}
+
 		}
+
 		public.enemy.isCheck = isEnemyCheck;
 	};
 
@@ -81,17 +88,13 @@ function Player(id){
 		var position = {'x' : x, 'y' : piece.getStartingRow()};
 		var square = Chess.board.getSquare(position);
 
-		piece.setId(private.getOnBoardLength());
+		piece.setId(Object.keys(public.pieces).length);
 		square.addPiece(piece);
 
 		if(piece.is('tower'))
 			piece.setCastling(position);
 
 		public.pieces[piece.id] = piece;
-	};
-
-	private.getOnBoardLength = function(){
-		return Object.keys(public.pieces).length;
 	};
 
 	public.unsetPiece = function(id){

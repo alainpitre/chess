@@ -32,7 +32,6 @@ event.move = function(square){
 	}else{
 		Chess.resetSelect();
 	}
-
 };
 
 event.selectPiece = function(piece){

@@ -19,11 +19,7 @@ function Chess(){
 		public.moves = new Moves();
 		private.loadPlayer();
 
-		window.addEventListener("keydown", private.undo, false);
-	};
-
-	private.undo = function(){
-		Chess.moves.undo();
+		window.addEventListener("keydown", Chess.moves.undo, false);
 	};
 
 	private.loadPlayer = function(){
