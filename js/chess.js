@@ -5,6 +5,7 @@ function Chess(){
 
 	public.board = undefined;
 	public.moves = undefined;
+	public.ai = undefined;
 	public.select = undefined;
 	public.playing = undefined;
 	public.white = undefined;
@@ -17,8 +18,9 @@ function Chess(){
 	private.documentReady = function(){
 		public.board = new Board();
 		public.moves = new Moves();
+		public.ai = new Ai();
+		
 		private.loadPlayer();
-
 		window.addEventListener("keydown", Chess.moves.undo, false);
 	};
 

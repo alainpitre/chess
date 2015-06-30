@@ -103,10 +103,10 @@ function Piece(type, player){
 	};
 
 	public.getStartingRow = function(){
-		if(public.type == "pawn")
-			return (public.player.id == 0) ? 1 : 6;
+		if(public.is("pawn"))
+			return (public.player.id == 0) ? 2 : 7;
 		else
-			return (public.player.id == 0) ? 0 : 7;
+			return (public.player.id == 0) ? 1 : 8;
 	};
 
 	public.addMoves = function(square){

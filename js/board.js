@@ -19,8 +19,8 @@ function Board($container){
 	};
 
 	private.loadSquares = function(){
-		for(var y = 0; y < 8; y++){
-			for(var x = 0; x < 8; x++){
+		for(var y = 1; y < 9; y++){
+			for(var x = 1; x < 9; x++){
 				private.buildSquare(x, y);
 			}
 		}

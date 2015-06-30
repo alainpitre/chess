@@ -34,7 +34,7 @@ function Pawn(player){
 		public.add(1, 1, true);
 		public.add(-1, 1, true);
 
-		if(private.isInitialPosition() && private.isEmptyFront())
+		if(public.isStarting() && private.isEmptyFront())
 			public.add(0, 2, true);
 	};
 
@@ -43,14 +43,6 @@ function Pawn(player){
 		position.y += public.direction;
 		return Chess.board.getSquare(position).isEmpty();
 	}
-
-	private.isInitialPosition = function(){
-		if(public.player.id == 1 && public.square.position.y == 6)
-			return true;
-		if(public.player.id == 0 && public.square.position.y== 1)
-			return true;
-		return false;
-	};
 
 	private.construct();
 	return public;
