@@ -11,10 +11,12 @@ function Piece(type, player){
 	public.count = 0;
 	public.id = 0;
 	public.isEat = false;
+	public.direction = 1;
 
 	private.construct = function(){
 		public.type = type;
 		public.player = player;
+		public.direction = (player.id == 1) ? -1 : 1;
 		public.setNode();
 	};
 
@@ -126,13 +128,12 @@ function Piece(type, player){
 	public.add = function(x, y, isSingle){
 
 		var position = public.getPosition();
-		var direction = (public.player.id == 1) ? 1 : -1;
 		var next = true;
 
 		while (next == true) {
 
 	    	position.x += x;
-	    	position.y += y * direction;
+	    	position.y += y * public.direction;
 
 	    	next = public.addMoves(Chess.board.getSquare(position));
 

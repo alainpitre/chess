@@ -10,14 +10,14 @@ function King(player){
 	public.setMoves = function(){
 		public.resetMoves();
 
-		public.add(0, 1, true);
-		public.add(1, 1, true);
-		public.add(1, 0, true);
-		public.add(1, -1, true);
 		public.add(0, -1, true);
-		public.add(-1, -1, true);
-		public.add(-1, 0, true);
+		public.add(1, -1, true);
+		public.add(1, 0, true);
+		public.add(1, 1, true);
+		public.add(0, 1, true);
 		public.add(-1, 1, true);
+		public.add(-1, 0, true);
+		public.add(-1, -1, true);
 
 		if(private.hasRightCastling())
 			private.addCastling({'x' : 6, 'y' : public.getStartingRow()});

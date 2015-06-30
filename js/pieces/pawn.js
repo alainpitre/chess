@@ -29,20 +29,25 @@ function Pawn(player){
 
 	public.setMoves = function(){
 		public.resetMoves();
-
-		if(private.isInitialPosition())
-			public.add(0, -2, true);
 		
-		public.add(0, -1, true);
-		public.add(1, -1, true);
-		public.add(-1, -1, true);
+		public.add(0, 1, true);
+		public.add(1, 1, true);
+		public.add(-1, 1, true);
+
+		if(private.isInitialPosition() && private.isEmptyFront())
+			public.add(0, 2, true);
 	};
 
-	private.isInitialPosition = function(){
+	private.isEmptyFront = function(){
 		var position = public.getPosition();
-		if(public.player.id == 1 && position.y == 6)
+		position.y += public.direction;
+		return Chess.board.getSquare(position).isEmpty();
+	}
+
+	private.isInitialPosition = function(){
+		if(public.player.id == 1 && public.square.position.y == 6)
 			return true;
-		if(public.player.id == 0 && position.y == 1)
+		if(public.player.id == 0 && public.square.position.y== 1)
 			return true;
 		return false;
 	};

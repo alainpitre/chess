@@ -10,14 +10,14 @@ function Knight(player){
 	public.setMoves = function(){
 		public.resetMoves();
 
-		public.add(-2, 1, true);
-		public.add(-1, 2, true);
-		public.add(2, 1, true);
-		public.add(1, 2, true);
 		public.add(-2, -1, true);
 		public.add(-1, -2, true);
 		public.add(2, -1, true);
 		public.add(1, -2, true);
+		public.add(-2, 1, true);
+		public.add(-1, 2, true);
+		public.add(2, 1, true);
+		public.add(1, 2, true);
 	};
 
 	private.construct();

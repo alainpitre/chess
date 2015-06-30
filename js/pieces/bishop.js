@@ -10,10 +10,10 @@ function Bishop(player){
 	public.setMoves = function(){
 		public.resetMoves();
 
-		public.add(1, 1, false);
 		public.add(1, -1, false);
-		public.add(-1, -1, false);
+		public.add(1, 1, false);
 		public.add(-1, 1, false);
+		public.add(-1, -1, false);
 	};
 
 	private.construct();
