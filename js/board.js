@@ -35,13 +35,9 @@ function Board($container){
 	};
 
 	public.getSquare = function(position){
-		if(public.squareExist(position) == false)
+		if(private.square[position.x] == undefined || private.square[position.x][position.y] == undefined)
 			return undefined;
 		return private.square[position.x][position.y];
-	};
-
-	public.squareExist = function(position){
-		return private.square[position.x] != undefined && private.square[position.x][position.y] != undefined;
 	};
 
 	public.removeStart = function() {
