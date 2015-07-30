@@ -7,13 +7,26 @@ function Player(id){
 	public.color = ['WHITE', 'BLACK'];
 	public.isCheck = false;
 	public.enemy = undefined;
-
+	public.allMoves = [];
+	public.king = undefined;
 	public.offboard = {};
 	public.pieces = {};
 
 	private.construct = function(){
 		public.id = id;
 		private.loadPieces();
+	};
+
+	private.mergeMoves = function(moves){
+		public.allMoves = public.allMoves.concat(moves);
+	};
+
+	public.isCheckMate = function(){
+		return public.king.isCheckMate();
+	}
+
+	public.getColor = function(){
+		return public.color[public.id];
 	};
 
 	private.loadPieces = function(){
@@ -27,6 +40,8 @@ function Player(id){
 
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
+		public.allMoves = [];
+
 		for(var key in public.pieces){
 
 			var piece = public.pieces[key];
@@ -35,19 +50,17 @@ function Player(id){
 
 				piece.setMoves();
 
-				if(piece.canEatKing()){
+				if(piece.canEatKing())
 					isEnemyCheck = true;
-				}
+
+				private.mergeMoves(piece.moves);
 
 			}
 
 		}
 
 		public.enemy.isCheck = isEnemyCheck;
-	};
-
-	public.getColor = function(){
-		return public.color[public.id];
+		
 	};
 
 	private.loadPawn = function(){
@@ -93,6 +106,9 @@ function Player(id){
 
 		if(piece.is('tower'))
 			piece.setCastling(position);
+
+		if(piece.is('king'))
+			public.king = piece;
 
 		public.pieces[piece.id] = piece;
 	};

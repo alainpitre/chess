@@ -40,9 +40,11 @@ function Chess(){
 		return (public.playing.id == 1) ? 0 : 1;
 	};
 
-	public.updatePlayer = function(id){
+	public.updatePlayer = function(){
 		public.white.updateMoves();
 		public.black.updateMoves();
+		// console.log(public.white.isCheckMate());
+		// console.log(public.black.isCheckMate());
 	};
 
 	public.setNextPlayer = function(id){

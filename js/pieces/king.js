@@ -46,7 +46,7 @@ function King(player){
 		var y = public.getStartingRow();
 		var isEmptyA = Chess.board.getSquare({'x' : 5, 'y' : y}).isEmpty();
 		var isEmptyB = Chess.board.getSquare({'x' : 6, 'y' : y}).isEmpty();
-		return isEmptyA && isEmptyB && private.hasTower({'x' : 0, 'y' : y});
+		return isEmptyA && isEmptyB && private.hasTower({'x' : 1, 'y' : y});
 	};
 
 	private.hasLeftCastling = function(){
@@ -54,7 +54,25 @@ function King(player){
 		var isEmptyA = Chess.board.getSquare({'x' : 1, 'y' : y}).isEmpty();
 		var isEmptyB = Chess.board.getSquare({'x' : 2, 'y' : y}).isEmpty();
 		var isEmptyC = Chess.board.getSquare({'x' : 3, 'y' : y}).isEmpty();
-		return isEmptyA && isEmptyB && isEmptyC && private.hasTower({'x' : 7, 'y' : y});
+		return isEmptyA && isEmptyB && isEmptyC && private.hasTower({'x' : 8, 'y' : y});
+	};
+
+	private.isPossibleCheck = function(square){
+		var enemyMoves = public.player.enemy.allMoves;
+		for(var i = 0; i < enemyMoves.length; i++){
+			if(enemyMoves[i] == square){
+				return true;
+			}
+		}
+		return false;
+	};
+
+	public.isCheckMate = function(){
+		for(var i = 0; i < public.moves.length; i++){
+			if(private.isPossibleCheck(public.moves[i]) == false)
+				return false;
+		}
+		return true;
 	};
 
 	private.construct();

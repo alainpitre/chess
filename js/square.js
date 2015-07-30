@@ -74,7 +74,7 @@ function Square(x, y){
 	};
 
 	public.hasKing = function(){
-		return public.hasPiece() && private.piece.type == "king";
+		return public.hasPiece() && private.piece.is("king");
 	};
 
 	public.getPiece = function(){
