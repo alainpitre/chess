@@ -19,18 +19,25 @@ function Board($container){
 	};
 
 	private.loadSquares = function(){
-		for(var y = 1; y < 9; y++){
-			for(var x = 1; x < 9; x++){
+		for(var y = 0; y < 8; y++){
+			for(var x = 0; x < 8; x++){
 				private.buildSquare(x, y);
 			}
 		}
 	};
 
+	public.toString = function(){
+		console.log('squares: ', private.square);
+	};
+
 	private.buildSquare = function(x, y){
 		var square = new Square(x, y);
-		if(private.square[x] == undefined)
-			private.square[x] = {};
-		private.square[x][y] = square;
+		var position = square.position;
+
+		if(private.square[position.x] == undefined)
+			private.square[position.x] = {};
+
+		private.square[position.x][position.y] = square;
 		public.node.appendChild(square.node);
 	};
 

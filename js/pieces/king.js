@@ -1,6 +1,6 @@
 function King(player){
 
-	var public = new Piece("king", player);
+	var public = new Piece("K", player);
 	var private = {};
 
 	private.construct = function(){

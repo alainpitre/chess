@@ -1,6 +1,6 @@
 function Pawn(player){
 
-	var public = new Piece("pawn", player);
+	var public = new Piece("", player);
 	var private = {};
 
 	private.construct = function(){
@@ -41,6 +41,7 @@ function Pawn(player){
 	private.isEmptyFront = function(){
 		var position = public.getPosition();
 		position.y += public.direction;
+
 		return Chess.board.getSquare(position).isEmpty();
 	}
 

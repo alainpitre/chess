@@ -1,6 +1,6 @@
 function Bishop(player){
 
-	var public = new Piece("bishop", player);
+	var public = new Piece("B", player);
 	var private = {};
 
 	private.construct = function(){

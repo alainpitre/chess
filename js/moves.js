@@ -3,18 +3,16 @@ function Moves(){
 	var public = {};
 	var private = {};
 
-	private.history = [];
+	public.history = undefined;
+
+	private.construct = function(){
+		public.history = new History();
+	};
 
 	public.goTo = function(piece, to){
 
 		var from = piece.square;
-		var status = private.prepStatus(piece, from, to);
-
-		if(to.hasEnemyPlayer(piece.player))
-			status.eat = private.prepStatus(to.getPiece(), to);
-
-		if(to.castling)
-			status.castling = true;
+		var status = public.history.prepare(piece, from, to);
 
 		from.empty();
 		to.setPiece(piece);
@@ -22,21 +20,11 @@ function Moves(){
 		
 		piece.addCount();
 
-		private.history.push(status);
+		public.history.add(status);
+		public.history.toString();
 
 		Chess.updatePlayer();
 
-	};
-
-	private.prepStatus = function(piece, from, to){
-		return {
-			'piece'		: piece.id,
-			'player' 	: piece.player.id,
-			'from' 		: (from != undefined) ? from.position : undefined,
-			'to' 		: (to != undefined) ? to.position : undefined,
-			'eat'		: undefined,
-			'castling'	: false
-		}
 	};
 
 	public.undo = function(){
@@ -44,13 +32,15 @@ function Moves(){
 		if(private.history.length > 0){
 
 			var nbUndos = 1;
-			var nbMoves = private.history.length - 1;
+			var nbMoves = public.history.length - 1;
 
 			for(var i = nbMoves; i > nbMoves - nbUndos; i--){
+				/*
 				if(private.history[i].castling == true){
 					nbUndos++;
 				}
-				private.cancelMove(private.history[i]);			
+				*/
+				private.cancelMove();			
 			}
 
 			private.history.splice(private.history.length - nbUndos, nbUndos);
@@ -86,6 +76,7 @@ function Moves(){
 		from.setPiece(piece);
 	};
 
+	private.construct();
 	return public;
 
 }

@@ -1,6 +1,6 @@
-function Tower(player){
+function Rook(player){
 
-	var public = new Piece("tower", player);
+	var public = new Piece("R", player);
 	var private = {};
 
 	public.castling = {};

@@ -64,6 +64,7 @@ function Player(id){
 	};
 
 	private.loadPawn = function(){
+		private.addPiece(new Pawn(public), 0);
 		private.addPiece(new Pawn(public), 1);
 		private.addPiece(new Pawn(public), 2);
 		private.addPiece(new Pawn(public), 3);
@@ -71,30 +72,29 @@ function Player(id){
 		private.addPiece(new Pawn(public), 5);
 		private.addPiece(new Pawn(public), 6);
 		private.addPiece(new Pawn(public), 7);
-		private.addPiece(new Pawn(public), 8);
 	};
 
 	private.loadTower = function(){
-		private.addPiece(new Tower(public), 1);
-		private.addPiece(new Tower(public), 8);
+		private.addPiece(new Rook(public), 0);
+		private.addPiece(new Rook(public), 7);
 	};
 
 	private.loadKinght = function(){
-		private.addPiece(new Knight(public), 2);
-		private.addPiece(new Knight(public), 7);
+		private.addPiece(new Knight(public), 1);
+		private.addPiece(new Knight(public), 6);
 	};
 
 	private.loadBishop = function(){
-		private.addPiece(new Bishop(public), 3);
-		private.addPiece(new Bishop(public), 6);
+		private.addPiece(new Bishop(public), 2);
+		private.addPiece(new Bishop(public), 5);
 	};
 
 	private.loadQueen = function(){
-		private.addPiece(new Queen(public), 4);
+		private.addPiece(new Queen(public), 3);
 	};
 
 	private.loadKing = function(){
-		private.addPiece(new King(public), 5);
+		private.addPiece(new King(public), 4);
 	};
 
 	private.addPiece = function(piece, x){
@@ -104,10 +104,10 @@ function Player(id){
 		piece.setId(Object.keys(public.pieces).length);
 		square.addPiece(piece);
 
-		if(piece.is('tower'))
+		if(piece.is('R'))
 			piece.setCastling(position);
 
-		if(piece.is('king'))
+		if(piece.is('K'))
 			public.king = piece;
 
 		public.pieces[piece.id] = piece;
