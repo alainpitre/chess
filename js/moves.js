@@ -4,76 +4,47 @@ function Moves(){
 	var private = {};
 
 	public.history = undefined;
+	public.panel = undefined;
 
 	private.construct = function(){
 		public.history = new History();
 	};
 
-	public.goTo = function(piece, to){
-
-		var from = piece.square;
-		var status = public.history.prepare(piece, from, to);
+	private.move = function(from, to){
+		var piece = from.getPiece();
 
 		from.empty();
 		to.setPiece(piece);
 		piece.animate();
-		
-		piece.addCount();
-
-		public.history.add(status);
-		public.history.toString();
 
 		Chess.updatePlayer();
-
 	};
 
-	public.undo = function(){
+	public.goTo = function(from, to){
+		public.history.save(from, to);
+		private.move(from, to);
+	};
 
-		if(private.history.length > 0){
+	public.prev = function(){
+		var move = public.history.getPrev();
 
-			var nbUndos = 1;
-			var nbMoves = public.history.length - 1;
+		if(move != undefined){
+			var from = Chess.board.getSquare(move.to);
+			var to = Chess.board.getSquare(move.from);
 
-			for(var i = nbMoves; i > nbMoves - nbUndos; i--){
-				/*
-				if(private.history[i].castling == true){
-					nbUndos++;
-				}
-				*/
-				private.cancelMove();			
-			}
-
-			private.history.splice(private.history.length - nbUndos, nbUndos);
+			private.move(from, to);
 		}
-
-		Chess.updatePlayer();
-
 	};
 
-	private.cancelMove = function(move){
-		var piece = Chess.getPiece(move.player, move.piece);		
-		var from = Chess.board.getSquare(move.from);
-		var to = Chess.board.getSquare(move.to);
+	public.next = function(){
+		var move = public.history.getNext();
 
-		Chess.setNextPlayer(move.player);
+		if(move != undefined){
+			var from = Chess.board.getSquare(move.from);
+			var to = Chess.board.getSquare(move.to);
 
-		to.empty();
-		from.setPiece(piece);
-		piece.animate();
-
-		piece.removeCount();
-
-		if(move.eat != undefined)
-			private.cancelEat(move.eat);
-	};
-
-	private.cancelEat = function(move){
-		var piece = Chess.getPiece(move.player, move.piece);		
-		var from = Chess.board.getSquare(move.from);
-
-		piece.isEat = false;
-
-		from.setPiece(piece);
+			private.move(from, to);
+		}
 	};
 
 	private.construct();

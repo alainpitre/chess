@@ -5,23 +5,23 @@ function Chess(){
 
 	public.board = undefined;
 	public.moves = undefined;
-	public.ai = undefined;
 	public.select = undefined;
 	public.playing = undefined;
 	public.white = undefined;
 	public.black = undefined;
+	public.html = undefined;
 
 	public.main = function(){
 		window.addEventListener('load', private.documentReady, false )
 	}
 
 	private.documentReady = function(){
+		public.html = document.getElementById('chess');
 		public.board = new Board();
 		public.moves = new Moves();
-		public.ai = new Ai();
 		
 		private.loadPlayer();
-		window.addEventListener("keydown", Chess.moves.undo, false);
+		window.addEventListener("keydown", private.keypress, false);
 	};
 
 	private.loadPlayer = function(){
@@ -31,9 +31,22 @@ function Chess(){
 		public.black.enemy = public.white;
 	};
 
-	public.getPiece = function(playerId, pieceId){
-		var player = (playerId == 1) ? public.black : public.white;
-		return player.pieces[pieceId];
+	private.keypress = function(event){
+		switch(event.keyCode){
+			case 37 :
+				Chess.moves.prev();
+				break;
+			case 39 :
+				Chess.moves.next();
+				break;
+			default:
+				return false;
+		}
+	};
+
+	public.getPiece = function(position){
+		var square = Chess.board.getSquare(position);
+		return square.getPiece();
 	};
 
 	public.getNextPlayerId = function(){

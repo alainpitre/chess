@@ -52,6 +52,10 @@ function Piece(type, player){
 		public.count++;
 	};
 
+	public.goTo = function(to){
+		Chess.moves.goTo(public.square, to);
+	};
+
 	public.getCount = function(){
 		return public.count;
 	};
@@ -105,7 +109,7 @@ function Piece(type, player){
 	};
 
 	public.getStartingRow = function(){
-		if(public.is(""))
+		if(public.is("p"))
 			return (public.player.id == 0) ? 1 : 6;
 		else
 			return (public.player.id == 0) ? 0 : 7;

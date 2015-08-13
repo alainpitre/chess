@@ -15,7 +15,8 @@ function Board($container){
 	private.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('id', 'board');
-		document.getElementById('chess').appendChild(public.node);
+		
+		Chess.html.appendChild(public.node);
 	};
 
 	private.loadSquares = function(){
@@ -25,11 +26,7 @@ function Board($container){
 			}
 		}
 	};
-
-	public.toString = function(){
-		console.log('squares: ', private.square);
-	};
-
+	
 	private.buildSquare = function(x, y){
 		var square = new Square(x, y);
 		var position = square.position;

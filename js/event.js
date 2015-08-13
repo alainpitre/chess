@@ -24,7 +24,7 @@ event.move = function(square){
 	if(square.castling)
 		event.castling(square)
 
-	Chess.moves.goTo(Chess.select, square);
+	Chess.select.goTo(square);
 
 	if(Chess.playing.isCheck){
 		Chess.showCheck();

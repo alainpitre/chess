@@ -1,6 +1,6 @@
 function Pawn(player){
 
-	var public = new Piece("", player);
+	var public = new Piece("p", player);
 	var private = {};
 
 	private.construct = function(){
