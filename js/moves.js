@@ -11,6 +11,9 @@ function Moves(){
 	};
 
 	private.move = function(from, to){
+
+		console.history();
+
 		var piece = from.getPiece();
 
 		from.empty();
@@ -26,23 +29,19 @@ function Moves(){
 	};
 
 	public.prev = function(){
-		var move = public.history.getPrev();
-
-		if(move != undefined){
+		if(public.history.hasPrev()){
+			var move = public.history.getPrev();
 			var from = Chess.board.getSquare(move.to);
 			var to = Chess.board.getSquare(move.from);
-
 			private.move(from, to);
 		}
 	};
 
 	public.next = function(){
-		var move = public.history.getNext();
-
-		if(move != undefined){
+		if(public.history.hasNext()){
+			var move = public.history.getNext();
 			var from = Chess.board.getSquare(move.from);
 			var to = Chess.board.getSquare(move.to);
-
 			private.move(from, to);
 		}
 	};

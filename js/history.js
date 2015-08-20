@@ -20,21 +20,34 @@ function History(){
 		Chess.html.appendChild(public.panel);
 	};
 
-	public.save = function(from, to){
-		if(private.list[private.pointer] != undefined)
-			private.list = private.list.slice(0, private.pointer);
-
-		private.list[private.pointer] = private.prepare(from, to);
-
-		var note = document.createElement("div");
-		note.innerHTML = private.prepare(from, to);
-		public.panel.appendChild(note);
-
-		private.next();
+	public.getList = function(){
+		return private.list;
 	};
 
-	private.reset = function(index){
-		private.list = private.list.slice(0, index);
+	public.getPointer = function(){
+		return private.pointer;
+	};
+
+	public.save = function(from, to){
+		var notation = private.prepare(from, to);
+
+		if(private.list[private.pointer] != undefined)
+			private.slice();
+
+		private.list[private.pointer] = notation;
+		private.pointer++;
+
+		private.print(notation);
+	};
+
+	private.print = function(notation){
+		var step = document.createElement("div");
+		step.innerHTML = notation
+		public.panel.appendChild(step);
+	};
+
+	private.slice = function(){
+		private.list = private.list.slice(0, private.pointer);
 	};
 
 	private.prepare = function(from, to){
@@ -47,31 +60,6 @@ function History(){
 
 	private.encodePosition = function(position){
 		return private.x[position.x]+private.y[position.y];
-	};
-
-	public.getPrev = function(){
-		if(private.hasPrev() == false)
-			return undefined;
-
-		private.prev();
-		return public.getMove();
-	};
-
-	public.getNext = function(){
-		var move = public.getMove();
-		private.next();
-		return move;
-	};
-
-	private.hasPrev = function(){
-		return private.list[private.pointer - 1] != undefined;
-	};
-
-	public.getMove = function(){
-		if(private.list[private.pointer] == undefined)
-			return undefined;
-		
-		return private.decode(private.list[private.pointer]);
 	};
 
 	private.decode = function(move){
@@ -90,12 +78,27 @@ function History(){
 		}
 	};
 
-	private.prev = function(){
-		private.pointer--;
+	public.hasNext = function(){
+		return private.list[private.pointer] != undefined;
 	};
 
-	private.next = function(){
+	public.hasPrev = function(){
+		return private.list[private.pointer - 1] != undefined;
+	};
+
+	public.getMove = function(){
+		return private.decode(private.list[private.pointer]);
+	};
+
+	public.getNext = function(){
+		var move = public.getMove();
 		private.pointer++;
+		return move;
+	};
+
+	public.getPrev = function(){
+		private.pointer--;
+		return public.getMove();
 	};
 
 	public.toString = function(){
