@@ -24,8 +24,7 @@ function Moves(){
 
 		var piece = to.getPiece();
 
-		Chess.setPlaying(piece.player.enemy);
-		Chess.update();
+		Chess.update(piece.player.enemy);
 	};
 
 	public.prev = function(){
@@ -36,8 +35,7 @@ function Moves(){
 			if(move.capture != undefined)
 				move.to.setPiece(move.capture);
 
-			Chess.setPlaying(move.piece.player);
-			Chess.update();
+			Chess.update(move.piece.player);
 		}
 	};
 
@@ -46,8 +44,7 @@ function Moves(){
 			var move = public.history.getNext();
 			private.move(move.from, move.to);
 
-			Chess.setPlaying(move.piece.player.enemy);
-			Chess.update();
+			Chess.update(move.piece.player.enemy);
 		}
 	};
 

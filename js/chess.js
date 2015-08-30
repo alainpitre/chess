@@ -50,25 +50,16 @@ function Chess(){
 		return square.getPiece();
 	};
 
-	public.update = function(){
+	public.update = function(nextPlayer){
 		public.white.updateMoves();
 		public.black.updateMoves();
 
-		console.log('update');
-	};
-
-	public.setPlaying = function(player){
-		public.playing = player;
-	};
-
-	public.updatePlayer = function(){
-		public.white.updateMoves();
-		public.black.updateMoves();
+		public.resetSelect();
+		public.playing = nextPlayer;
 	};
 
 	public.start = function(player){
-		public.setPlaying(player);
-		public.updatePlayer();
+		public.update(player);
 		public.board.removeStart();
 	};
 
