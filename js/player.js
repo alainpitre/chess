@@ -6,8 +6,6 @@ function Player(color){
 	public.color = "";
 	public.isCheck = false;
 	public.enemy = undefined;
-	public.allMoves = [];
-	public.king = undefined;
 	public.pieces = {};
 	public.captured = {};
 
@@ -15,14 +13,6 @@ function Player(color){
 		public.color = color;
 		private.loadPieces();
 	};
-
-	private.mergeMoves = function(moves){
-		public.allMoves = public.allMoves.concat(moves);
-	};
-
-	public.isCheckMate = function(){
-		return public.king.isCheckMate();
-	}
 
 	public.isWhite = function(){
 		return public.color == "white";
@@ -42,9 +32,7 @@ function Player(color){
 	};
 
 	public.updateMoves = function(){
-		var isEnemyCheck = false;
-
-		public.allMoves = [];
+		public.enemy.isCheck = false;
 
 		for(var key in public.pieces){
 
@@ -52,15 +40,10 @@ function Player(color){
 
 			piece.setMoves();
 
-			if(piece.canEatKing())
-				isEnemyCheck = true;
-
-			private.mergeMoves(piece.moves);
+			if(piece.isCaptureKing())
+				public.enemy.isCheck = true;
 
 		}
-
-		public.enemy.isCheck = isEnemyCheck;
-		
 	};
 
 	private.loadPawn = function(){
@@ -107,9 +90,6 @@ function Player(color){
 
 		if(piece.is('R'))
 			piece.setCastling(position);
-
-		if(piece.is('K'))
-			public.king = piece;
 
 		*/
 

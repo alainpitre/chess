@@ -24,6 +24,7 @@ function Moves(){
 
 		var piece = to.getPiece();
 
+		piece.addCount();
 		Chess.update(piece.player.enemy);
 	};
 
@@ -35,6 +36,7 @@ function Moves(){
 			if(move.capture != undefined)
 				move.to.setPiece(move.capture);
 
+			move.piece.removeCount();
 			Chess.update(move.piece.player);
 		}
 	};
@@ -44,6 +46,7 @@ function Moves(){
 			var move = public.history.getNext();
 			private.move(move.from, move.to);
 
+			move.piece.addCount();
 			Chess.update(move.piece.player.enemy);
 		}
 	};

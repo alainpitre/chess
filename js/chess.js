@@ -54,6 +54,7 @@ function Chess(){
 		public.white.updateMoves();
 		public.black.updateMoves();
 
+		public.showCheck();
 		public.resetSelect();
 		public.playing = nextPlayer;
 	};

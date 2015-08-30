@@ -52,7 +52,6 @@ function Piece(type, player){
 
 	public.goTo = function(to){
 		Chess.moves.goTo(public.square, to);
-		public.addCount();
 	};
 
 	public.isStarting = function(){
@@ -78,13 +77,10 @@ function Piece(type, player){
 		public.moves = [];
 	};
 
-	public.canEatKing = function(){
+	public.isCaptureKing = function(){
 		for(var i = 0; i < public.moves.length; i++){
-			var square = public.moves[i];
-			if(square.hasEnemyPlayer(public.player) && square.hasKing()){
-				
+			if(public.moves[i].hasKing())
 				return true;
-			}
 		}
 		return false;
 	};

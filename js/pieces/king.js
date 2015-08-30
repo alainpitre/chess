@@ -57,24 +57,6 @@ function King(player){
 		return isEmptyA && isEmptyB && isEmptyC && private.hasTower({'x' : 8, 'y' : y});
 	};
 
-	private.isPossibleCheck = function(square){
-		var enemyMoves = public.player.enemy.allMoves;
-		for(var i = 0; i < enemyMoves.length; i++){
-			if(enemyMoves[i] == square){
-				return true;
-			}
-		}
-		return false;
-	};
-
-	public.isCheckMate = function(){
-		for(var i = 0; i < public.moves.length; i++){
-			if(private.isPossibleCheck(public.moves[i]) == false)
-				return false;
-		}
-		return true;
-	};
-
 	private.construct();
 	return public;
 

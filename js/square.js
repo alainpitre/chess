@@ -66,7 +66,7 @@ function Square(x, y){
 	};
 
 	public.hasEnemyPlayer = function(player){
-		return public.hasPiece() && private.piece.player.color != player.color;
+		return public.hasPiece() && private.piece.player.color != player.color
 	};
 
 	public.hasPieceStarting = function(){
