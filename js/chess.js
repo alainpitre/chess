@@ -12,7 +12,7 @@ function Chess(){
 	public.html = undefined;
 
 	public.main = function(){
-		window.addEventListener('load', private.documentReady, false )
+		window.addEventListener('load', private.documentReady, false );
 	}
 
 	private.documentReady = function(){
@@ -21,12 +21,13 @@ function Chess(){
 		public.moves = new Moves();
 		
 		private.loadPlayer();
+
 		window.addEventListener("keydown", private.keypress, false);
 	};
 
 	private.loadPlayer = function(){
-		public.white = new Player(0);
-		public.black = new Player(1);
+		public.white = new Player('white');
+		public.black = new Player('black');
 		public.white.enemy = public.black;
 		public.black.enemy = public.white;
 	};
@@ -49,31 +50,30 @@ function Chess(){
 		return square.getPiece();
 	};
 
-	public.getNextPlayerId = function(){
-		return (public.playing.id == 1) ? 0 : 1;
+	public.update = function(){
+		public.white.updateMoves();
+		public.black.updateMoves();
+
+		console.log('update');
+	};
+
+	public.setPlaying = function(player){
+		public.playing = player;
 	};
 
 	public.updatePlayer = function(){
 		public.white.updateMoves();
 		public.black.updateMoves();
-		// console.log(public.white.isCheckMate());
-		// console.log(public.black.isCheckMate());
 	};
 
-	public.setNextPlayer = function(id){
-		id = (id == undefined) ? public.getNextPlayerId() : id;
-		public.playing = (id == 1) ? public.black : public.white;
-	};
-
-	public.setPlayer = function(id){
-		public.setNextPlayer(id);
+	public.start = function(player){
+		public.setPlaying(player);
 		public.updatePlayer();
 		public.board.removeStart();
 	};
 
 	public.resetSelect = function(){
 		if(public.select != undefined){
-			public.setNextPlayer();
 			public.select.hideMoves();
 			public.select = undefined;
 		}

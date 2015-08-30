@@ -49,8 +49,8 @@ function Board($container){
 	}
 
 	private.loadPlayer = function(){
-		var white = '<button onclick="Chess.setPlayer(0);">WHITE</button>';
-		var black = '<button onclick="Chess.setPlayer(1);">BLACK</button>';
+		var white = '<button onclick="Chess.start(Chess.white);">WHITE</button>';
+		var black = '<button onclick="Chess.start(Chess.black);">BLACK</button>';
 		public.node.innerHTML += '<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>';
 	};
 

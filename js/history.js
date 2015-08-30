@@ -29,53 +29,45 @@ function History(){
 	};
 
 	public.save = function(from, to){
-		var notation = private.prepare(from, to);
+		var data = private.prepare(from, to);
 
 		if(private.list[private.pointer] != undefined)
 			private.slice();
 
-		private.list[private.pointer] = notation;
+		private.list[private.pointer] = data;
 		private.pointer++;
 
-		private.print(notation);
+		private.print(private.encodeNotation(data));
 	};
 
 	private.print = function(notation){
 		var step = document.createElement("div");
+		step.id = notation;
 		step.innerHTML = notation
 		public.panel.appendChild(step);
 	};
-
+	
 	private.slice = function(){
 		private.list = private.list.slice(0, private.pointer);
 	};
 
 	private.prepare = function(from, to){
-		var piece = from.getPiece();
-		var fromEncode = private.encodePosition(from.position);
-		var toEncode = private.encodePosition(to.position);
-
-		return piece.type + fromEncode + "-" + toEncode;
-	};
-
-	private.encodePosition = function(position){
-		return private.x[position.x]+private.y[position.y];
-	};
-
-	private.decode = function(move){
-		var data = move.split('-');
 		return {
-			'piece' : data[0].charAt(0),
-			'from' 	: private.decodePosition(data[0].substring(1, 3)),
-			'to'	: private.decodePosition(data[1].substring(0, 2))
-		};
-	};
-
-	private.decodePosition = function(move) {
-		return {
-			'x' : private.x.indexOf(move.charAt(0)),
-			'y' : private.y.indexOf(move.charAt(1))
+			'piece'		: from.getPiece(),
+			'from' 		: from,
+			'to'		: to,
+			'capture'	: to.getPiece()
 		}
+	};
+
+	private.encodeNotation = function(move){
+		var capture = "";
+		var position = move.to.position;
+
+		if(move.capture != undefined)
+			capture = "x";
+
+		return move.piece.type.toUpperCase() + capture + private.x[position.x] + private.y[position.y];
 	};
 
 	public.hasNext = function(){
@@ -87,7 +79,7 @@ function History(){
 	};
 
 	public.getMove = function(){
-		return private.decode(private.list[private.pointer]);
+		return private.list[private.pointer];
 	};
 
 	public.getNext = function(){

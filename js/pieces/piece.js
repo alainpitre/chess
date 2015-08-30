@@ -16,20 +16,18 @@ function Piece(type, player){
 	private.construct = function(){
 		public.type = type;
 		public.player = player;
-		public.direction = (player.id == 1) ? -1 : 1;
+		public.direction = (public.player.isBlack()) ? -1 : 1;
+		public.id = Object.keys(public.player.pieces).length;
 		public.setNode();
 	};
 
 	public.setHtml = function(html){
-		public.node.innerHTML = html[player.id];
+		var index = (public.player.isBlack()) ? 1 : 0;
+		public.node.innerHTML = html[index];
 	};
 
 	public.getPosition = function(){
 		return {'x' : public.square.position.x, 'y' : public.square.position.y};
-	};
-
-	public.setId = function(nbPieces){
-		public.id = (nbPieces > 9) ? nbPieces : "0" + nbPieces;
 	};
 
 	public.is = function(type){
@@ -54,14 +52,11 @@ function Piece(type, player){
 
 	public.goTo = function(to){
 		Chess.moves.goTo(public.square, to);
-	};
-
-	public.getCount = function(){
-		return public.count;
+		public.addCount();
 	};
 
 	public.isStarting = function(){
-		return public.getCount() == 0;
+		return public.count == 0;
 	};
 
 	public.showMoves = function(){
@@ -110,9 +105,9 @@ function Piece(type, player){
 
 	public.getStartingRow = function(){
 		if(public.is("p"))
-			return (public.player.id == 0) ? 1 : 6;
+			return (public.player.isWhite()) ? 1 : 6;
 		else
-			return (public.player.id == 0) ? 0 : 7;
+			return (public.player.isWhite()) ? 0 : 7;
 	};
 
 	public.addMoves = function(square){
@@ -151,7 +146,7 @@ function Piece(type, player){
 	};
 
 	public.toString = function(){
-		console.log(public.type, public.getCount());
+		console.log(public.type, public.count);
 	};
 
 	private.construct();

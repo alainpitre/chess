@@ -11,38 +11,43 @@ function Moves(){
 	};
 
 	private.move = function(from, to){
-
-		console.history();
-
 		var piece = from.getPiece();
 
 		from.empty();
 		to.setPiece(piece);
 		piece.animate();
-
-		Chess.updatePlayer();
 	};
 
 	public.goTo = function(from, to){
 		public.history.save(from, to);
 		private.move(from, to);
+
+		var piece = to.getPiece();
+
+		Chess.setPlaying(piece.player.enemy);
+		Chess.update();
 	};
 
 	public.prev = function(){
 		if(public.history.hasPrev()){
 			var move = public.history.getPrev();
-			var from = Chess.board.getSquare(move.to);
-			var to = Chess.board.getSquare(move.from);
-			private.move(from, to);
+			private.move(move.to, move.from);
+			
+			if(move.capture != undefined)
+				move.to.setPiece(move.capture);
+
+			Chess.setPlaying(move.piece.player);
+			Chess.update();
 		}
 	};
 
 	public.next = function(){
 		if(public.history.hasNext()){
 			var move = public.history.getNext();
-			var from = Chess.board.getSquare(move.from);
-			var to = Chess.board.getSquare(move.to);
-			private.move(from, to);
+			private.move(move.from, move.to);
+
+			Chess.setPlaying(move.piece.player.enemy);
+			Chess.update();
 		}
 	};
 

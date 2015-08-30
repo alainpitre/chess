@@ -1,19 +1,18 @@
-function Player(id){
+function Player(color){
 
 	var public = {};
 	var private = {};
 
-	public.id = 0;
-	public.color = ['WHITE', 'BLACK'];
+	public.color = "";
 	public.isCheck = false;
 	public.enemy = undefined;
 	public.allMoves = [];
 	public.king = undefined;
-	public.offboard = {};
 	public.pieces = {};
+	public.captured = {};
 
 	private.construct = function(){
-		public.id = id;
+		public.color = color;
 		private.loadPieces();
 	};
 
@@ -25,9 +24,13 @@ function Player(id){
 		return public.king.isCheckMate();
 	}
 
-	public.getColor = function(){
-		return public.color[public.id];
-	};
+	public.isWhite = function(){
+		return public.color == "white";
+	}
+
+	public.isBlack = function(){
+		return public.color == "black";
+	}
 
 	private.loadPieces = function(){
 		private.loadPawn();
@@ -40,22 +43,19 @@ function Player(id){
 
 	public.updateMoves = function(){
 		var isEnemyCheck = false;
+
 		public.allMoves = [];
 
 		for(var key in public.pieces){
 
 			var piece = public.pieces[key];
 
-			if(piece.isEat == false){
+			piece.setMoves();
 
-				piece.setMoves();
+			if(piece.canEatKing())
+				isEnemyCheck = true;
 
-				if(piece.canEatKing())
-					isEnemyCheck = true;
-
-				private.mergeMoves(piece.moves);
-
-			}
+			private.mergeMoves(piece.moves);
 
 		}
 
@@ -101,8 +101,9 @@ function Player(id){
 		var position = {'x' : x, 'y' : piece.getStartingRow()};
 		var square = Chess.board.getSquare(position);
 
-		piece.setId(Object.keys(public.pieces).length);
 		square.addPiece(piece);
+
+		/*
 
 		if(piece.is('R'))
 			piece.setCastling(position);
@@ -110,11 +111,22 @@ function Player(id){
 		if(piece.is('K'))
 			public.king = piece;
 
+		*/
+
 		public.pieces[piece.id] = piece;
 	};
 
 	public.unsetPiece = function(id){
-		public.pieces[id].isEat = true;
+		var tempPieces = {};
+
+		for(var index in public.pieces){
+			if(index == id)
+				public.captured[index] = public.pieces[index];
+			else
+				tempPieces[index] = public.pieces[index];
+		}
+
+		public.pieces = tempPieces;
 	};
 
 	private.construct();

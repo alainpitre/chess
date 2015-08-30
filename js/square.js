@@ -62,11 +62,11 @@ function Square(x, y){
 	};
 
 	public.hasSamePlayer = function(player){
-		return public.hasPiece() && private.piece.player.id == player.id;
+		return public.hasPiece() && private.piece.player.color == player.color;
 	};
 
 	public.hasEnemyPlayer = function(player){
-		return public.hasPiece() && private.piece.player.id != player.id
+		return public.hasPiece() && private.piece.player.color != player.color;
 	};
 
 	public.hasPieceStarting = function(){
