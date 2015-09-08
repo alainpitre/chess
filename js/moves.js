@@ -20,8 +20,9 @@ function Moves(){
 
 	public.goTo = function(from, to){
 		public.history.save(from, to);
-		private.move(from, to);
 
+		private.move(from, to);
+ 
 		var piece = to.getPiece();
 
 		piece.addCount();
