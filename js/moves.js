@@ -31,7 +31,9 @@ function Moves(){
 
 	public.prev = function(){
 		if(public.history.hasPrev()){
-			var move = public.history.getPrev();
+
+			var move = public.history.getMove();
+
 			private.move(move.to, move.from);
 			
 			if(move.capture != undefined)
@@ -39,16 +41,24 @@ function Moves(){
 
 			move.piece.removeCount();
 			Chess.update(move.piece.player);
+
+			public.history.prev();
+
 		}
 	};
 
 	public.next = function(){
 		if(public.history.hasNext()){
-			var move = public.history.getNext();
+
+			public.history.next();
+
+			var move = public.history.getMove();
+
 			private.move(move.from, move.to);
 
 			move.piece.addCount();
 			Chess.update(move.piece.player.enemy);
+
 		}
 	};
 
