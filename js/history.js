@@ -69,11 +69,15 @@ function History(){
 	private.encodeNotation = function(move){
 		var capture = "";
 		var position = move.to.position;
+		var type = move.piece.type.toUpperCase();
+
+		if(move.piece.type == "p" && move.piece.count == 0)
+			type = "";
 
 		if(move.capture != undefined)
 			capture = "x";
 
-		return move.piece.type.toUpperCase() + capture + private.x[position.x] + private.y[position.y];
+		return type + capture + private.x[position.x] + private.y[position.y];
 	};
 
 	private.updateLastMove = function(){
