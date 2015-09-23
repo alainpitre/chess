@@ -6,8 +6,7 @@ function Player(color){
 	public.color = "";
 	public.isCheck = false;
 	public.enemy = undefined;
-	public.pieces = {};
-	public.captured = {};
+	public.pieces = [];
 
 	private.construct = function(){
 		public.color = color;
@@ -22,6 +21,23 @@ function Player(color){
 		return public.color == "black";
 	}
 
+	public.updateMoves = function(){
+		public.pieces.forEach(function(piece) {
+			if(piece.isCaptured == false){
+				piece.setMoves();
+				public.analyse(piece.moves);
+			}
+		});
+	};
+
+	public.analyse = function(moves){
+		moves.forEach(function(move){
+			if(move.hasKing()){
+				public.enemy.isCheck = true;
+			}
+		});
+	};
+
 	private.loadPieces = function(){
 		private.loadPawn();
 		private.loadTower();
@@ -29,21 +45,6 @@ function Player(color){
 		private.loadBishop();
 		private.loadQueen();
 		private.loadKing();
-	};
-
-	public.updateMoves = function(){
-		public.enemy.isCheck = false;
-
-		for(var key in public.pieces){
-
-			var piece = public.pieces[key];
-
-			piece.setMoves();
-
-			if(piece.isCaptureKing())
-				public.enemy.isCheck = true;
-
-		}
 	};
 
 	private.loadPawn = function(){
@@ -86,27 +87,7 @@ function Player(color){
 
 		square.addPiece(piece);
 
-		/*
-
-		if(piece.is('R'))
-			piece.setCastling(position);
-
-		*/
-
 		public.pieces[piece.id] = piece;
-	};
-
-	public.unsetPiece = function(id){
-		var tempPieces = {};
-
-		for(var index in public.pieces){
-			if(index == id)
-				public.captured[index] = public.pieces[index];
-			else
-				tempPieces[index] = public.pieces[index];
-		}
-
-		public.pieces = tempPieces;
 	};
 
 	private.construct();

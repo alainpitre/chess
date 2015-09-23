@@ -5,24 +5,27 @@ function Chess(){
 
 	public.board = undefined;
 	public.moves = undefined;
+	public.history = undefined;
 	public.select = undefined;
+	public.sync = undefined;
 	public.playing = undefined;
 	public.white = undefined;
 	public.black = undefined;
 	public.html = undefined;
 
 	public.main = function(){
-		window.addEventListener('load', private.documentReady, false );
-	}
-
-	private.documentReady = function(){
 		public.html = document.getElementById('chess');
+
 		public.board = new Board();
+		public.history = new History();
 		public.moves = new Moves();
+		public.sync = new Sync();
 		
 		private.loadPlayer();
 
 		window.addEventListener("keydown", private.keypress, false);
+
+		public.start(public.white);
 	};
 
 	private.loadPlayer = function(){
@@ -45,17 +48,16 @@ function Chess(){
 		}
 	};
 
-	public.getPiece = function(position){
-		var square = Chess.board.getSquare(position);
-		return square.getPiece();
-	};
-
 	public.update = function(nextPlayer){
+		public.white.isCheck = false;
+		public.black.isCheck = false;
+
 		public.white.updateMoves();
 		public.black.updateMoves();
 
 		public.showCheck();
 		public.resetSelect();
+
 		public.playing = nextPlayer;
 	};
 
@@ -71,6 +73,14 @@ function Chess(){
 		}
 	};
 
+	public.selectPiece = function(piece){
+		if(public.select != undefined)
+			public.select.hideMoves();
+
+		public.select = piece;
+		public.select.showMoves();
+	};
+
 	public.showCheck = function(){
 		if(public.white.isCheck)
 			alert('Player White is check.');
@@ -78,7 +88,7 @@ function Chess(){
 			alert('Player Black is check.');
 	};
 
-	public.main();
+	window.addEventListener('load', public.main, false);
 	return public;
 
 }

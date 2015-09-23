@@ -21,11 +21,11 @@ function Square(x, y){
 	};
 
 	public.addPiece = function(piece){
-		public.setPiece(piece);
-		piece.animate();
+		public.setPiece(piece, false);
+		piece.animate(false);
 	};
 
-	public.setPiece = function(piece){
+	public.setPiece = function(piece, isCapture){
 		if(private.piece != undefined){
 			private.piece.remove();
 		}
@@ -33,6 +33,8 @@ function Square(x, y){
 		Chess.board.node.appendChild(piece.node);
 		private.piece = piece;
 		private.piece.square = public;
+
+		private.piece.isCapture = isCapture;
 	};
 
 	public.getOffset = function() {

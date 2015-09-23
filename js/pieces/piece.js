@@ -10,32 +10,35 @@ function Piece(type, player){
 	public.square = undefined;
 	public.count = 0;
 	public.id = 0;
-	public.isEat = false;
+	public.isCaptured = false;
 	public.direction = 1;
 
 	private.construct = function(){
 		public.type = type;
 		public.player = player;
-		public.direction = (public.player.isBlack()) ? -1 : 1;
-		public.id = Object.keys(public.player.pieces).length;
+		public.direction = (public.player.color == "white") ? -1 : 1;
+		public.id = public.player.pieces.length;
 		public.setNode();
 	};
 
 	public.setHtml = function(html){
-		var index = (public.player.isBlack()) ? 1 : 0;
+		var index = (public.player.color == "black") ? 1 : 0;
 		public.node.innerHTML = html[index];
 	};
 
 	public.getPosition = function(){
-		return {'x' : public.square.position.x, 'y' : public.square.position.y};
+		return Object.create(public.square.position);
 	};
 
 	public.is = function(type){
 		return public.type == type;
 	};
 
-	public.animate = function(square){
-		$(public.node).animate(public.square.getOffset());
+	public.animate = function(doAnimation){
+		if(doAnimation)
+			$(public.node).animate(public.square.getOffset());
+		else
+			$(public.node).css(public.square.getOffset());
 	};
 
 	public.setMoves = function(){
@@ -73,37 +76,30 @@ function Piece(type, player){
 	};
 
 	public.resetMoves = function(){
-		public.player.enemy.isCheck = false;
 		public.moves = [];
-	};
-
-	public.isCaptureKing = function(){
-		for(var i = 0; i < public.moves.length; i++){
-			if(public.moves[i].hasKing())
-				return true;
-		}
-		return false;
 	};
 
 	public.setNode = function(){
 		public.node = document.createElement("div");
 		public.node.setAttribute('class', 'piece');
 		public.node.addEventListener('click', function(){
-			event.clickSquare(public.square);
+			if(Chess.history.isLastMove()){
+				event.clickSquare(public.square);
+			}
 		});
 	};
 
 	public.remove = function(){
-		public.player.unsetPiece(public.id);
+		public.isCaptured = true;
 		public.square = undefined;
 		public.node.remove();
 	};
 
 	public.getStartingRow = function(){
 		if(public.is("p"))
-			return (public.player.isWhite()) ? 1 : 6;
+			return (public.player.color == "white") ? 6 : 1;
 		else
-			return (public.player.isWhite()) ? 0 : 7;
+			return (public.player.color == "white") ? 7 : 0;
 	};
 
 	public.addMoves = function(square){
@@ -132,17 +128,15 @@ function Piece(type, player){
 	    	position.x += x;
 	    	position.y += y * public.direction;
 
-	    	next = public.addMoves(Chess.board.getSquare(position));
+	    	var square = Chess.board.getSquare(position);
+
+	    	next = public.addMoves(square);
 
 	    	if(isSingle)
 	    		next = false;
 
 		}
 
-	};
-
-	public.toString = function(){
-		console.log(public.type, public.count);
 	};
 
 	private.construct();

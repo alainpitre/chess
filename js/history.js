@@ -28,6 +28,10 @@ function History(){
 		return private.pointer;
 	};
 
+	public.isLastMove = function(){
+		return public.hasNext() == false;
+	};
+
 	public.save = function(from, to){
 		private.pointer++;
 

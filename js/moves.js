@@ -3,56 +3,52 @@ function Moves(){
 	var public = {};
 	var private = {};
 
-	public.history = undefined;
-	public.panel = undefined;
-
-	private.construct = function(){
-		public.history = new History();
-	};
-
 	private.move = function(from, to){
 		var piece = from.getPiece();
 
 		from.empty();
-		to.setPiece(piece);
-		piece.animate();
+		to.setPiece(piece, false);
+		piece.animate(true);
 	};
 
 	public.goTo = function(from, to){
-		public.history.save(from, to);
+		Chess.history.save(from, to);
 
 		private.move(from, to);
  
 		var piece = to.getPiece();
 
 		piece.addCount();
+
+		Chess.sync.send(Chess.history.getMove());
 		Chess.update(piece.player.enemy);
 	};
 
 	public.prev = function(){
-		if(public.history.hasPrev()){
+		if(Chess.history.hasPrev()){
 
-			var move = public.history.getMove();
+			var move = Chess.history.getMove();
 
 			private.move(move.to, move.from);
 			
-			if(move.capture != undefined)
-				move.to.setPiece(move.capture);
+			if(move.capture != undefined){
+				move.to.setPiece(move.capture, true);
+			}
 
 			move.piece.removeCount();
 			Chess.update(move.piece.player);
 
-			public.history.prev();
+			Chess.history.prev();
 
 		}
 	};
 
 	public.next = function(){
-		if(public.history.hasNext()){
+		if(Chess.history.hasNext()){
 
-			public.history.next();
+			Chess.history.next();
 
-			var move = public.history.getMove();
+			var move = Chess.history.getMove();
 
 			private.move(move.from, move.to);
 
@@ -62,7 +58,6 @@ function Moves(){
 		}
 	};
 
-	private.construct();
 	return public;
 
 }

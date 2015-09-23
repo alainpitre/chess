@@ -26,16 +26,13 @@ function Board($container){
 			}
 		}
 	};
-	
+
 	private.buildSquare = function(x, y){
-		var square = new Square(x, y);
-		var position = square.position;
+		if(private.square[x] == undefined)
+			private.square[x] = {};
 
-		if(private.square[position.x] == undefined)
-			private.square[position.x] = {};
-
-		private.square[position.x][position.y] = square;
-		public.node.appendChild(square.node);
+		private.square[x][y] = new Square(x, y);
+		public.node.appendChild(private.square[x][y].node);
 	};
 
 	public.getSquare = function(position){
