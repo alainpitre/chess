@@ -26,6 +26,9 @@ function Chess(){
 		window.addEventListener("keydown", private.keypress, false);
 
 		public.start(public.white);
+
+		//public.board.showPlayerSelect();
+
 	};
 
 	private.loadPlayer = function(){
@@ -63,7 +66,7 @@ function Chess(){
 
 	public.start = function(player){
 		public.update(player);
-		public.board.removeStart();
+		//public.board.hidePlayerSelect();
 	};
 
 	public.resetSelect = function(){

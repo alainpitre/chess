@@ -8,7 +8,6 @@ function Board($container){
 
 	public.construct = function(){
 		private.setNode();
-		private.loadPlayer();
 		private.loadSquares();
 	};
 
@@ -41,11 +40,11 @@ function Board($container){
 		return private.square[position.x][position.y];
 	};
 
-	public.removeStart = function() {
+	public.hidePlayerSelect = function() {
 		public.node.removeChild(document.getElementById("player"));
 	}
 
-	private.loadPlayer = function(){
+	public.showPlayerSelect = function(){
 		var white = '<button onclick="Chess.start(Chess.white);">WHITE</button>';
 		var black = '<button onclick="Chess.start(Chess.black);">BLACK</button>';
 		public.node.innerHTML += '<div id="player"><div class="button">SELECT STARTING PLAYER<br />'+black+white+'</div></div>';
