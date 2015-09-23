@@ -20,14 +20,6 @@ function History(){
 		Chess.html.appendChild(private.panel);
 	};
 
-	public.getList = function(){
-		return private.list;
-	};
-
-	public.getPointer = function(){
-		return private.pointer;
-	};
-
 	public.isLastMove = function(){
 		return public.hasNext() == false;
 	};
