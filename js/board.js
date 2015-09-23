@@ -37,6 +37,7 @@ function Board($container){
 	public.getSquare = function(position){
 		if(private.square[position.x] == undefined || private.square[position.x][position.y] == undefined)
 			return undefined;
+		
 		return private.square[position.x][position.y];
 	};
 
