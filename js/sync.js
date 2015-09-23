@@ -11,9 +11,6 @@ function Sync(){
 	};
 
 	public.receive = function(json){
-
-		console.log(json);
-
 		var encode = JSON.parse(json);
 		var move = private.decode(encode);
 	};
