@@ -31,9 +31,9 @@ function Square(x, y){
 		}
 
 		Chess.board.node.appendChild(piece.node);
+
 		private.piece = piece;
 		private.piece.square = public;
-
 		private.piece.isCapture = isCapture;
 	};
 
